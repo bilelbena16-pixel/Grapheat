@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Graph'Eat — Visuels food qui font commander</title>
+<meta name="description" content="Graphiste spécialisé restauration : identité, menus, contenu réseaux, visuels produits et vitrines Uber Eats & Deliveroo.">
+<meta name="theme-color" content="#0a0a0a">
+<!--
+  Graph'Eat — site one-page, refonte via le skill ui-ux-pro-max
+  (style Brutalism éditorial, palette "food delivery", dials variance 8 / motion 5 / density 3).
+
+  À PERSONNALISER :
+  - WHATSAPP et EMAIL en bas du fichier.
+  - Chaque .slot : remplace le contenu par <img src="visuel.webp" alt="description du visuel" loading="lazy">.
+    Les ratios sont réservés (aspect-ratio) pour éviter les sauts de mise en page.
+  - Titres en "League Spartan" (proche de LemonMilk). Pour la vraie LemonMilk, ajoute un
+    @font-face avec ton .woff2 et change --font-display.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=League+Spartan:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  :root{
+    /* Couleurs — skill : "Food Delivery" (orange appétissant) sur base noire Mono */
+    --color-bg:#0a0a0a;
+    --color-surface:#141414;
+    --color-surface-2:#1c1c1c;
+    --color-fg:#fff7ed;            /* crème chaud, contraste 18:1 sur le fond */
+    --color-muted:#b8b0a6;         /* 8.9:1 sur le fond */
+    --color-line:rgba(255,247,237,.16);
+    --color-primary:#ea580c;       /* orange — 5.1:1 sur le fond */
+    --color-primary-hover:#f97316;
+    --color-on-primary:#0a0a0a;
+    --color-error:#f87171;
+    --font-display:"League Spartan","Arial Black",system-ui,sans-serif;
+    --font-body:"Karla",system-ui,sans-serif;
+    /* Espacements — density 3 (spacieux) */
+    --space-1:8px;--space-2:16px;--space-3:24px;--space-4:40px;--space-5:64px;--space-6:96px;
+    --gutter:clamp(16px,5vw,64px);
+    --ease-out:cubic-bezier(.2,.7,.2,1);
+    --dur-fast:150ms;--dur:250ms;
+  }
+  html{scroll-behavior:smooth;scroll-padding-top:80px;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(--font-body),system-ui,sans-serif;
+    font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  h1,h2,h3{font-family:var(--font-display),sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:0;line-height:.95;margin:0;text-wrap:balance}
+  p{text-wrap:pretty}
+  :focus-visible{outline:3px solid var(--color-primary);outline-offset:3px}
+  .skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--color-primary);color:var(--color-on-primary);padding:12px 16px;font-weight:700}
+  .skip:focus{left:8px}
+  .wrap{padding-inline:var(--gutter);max-width:1440px;margin-inline:auto}
+  .eyebrow{display:flex;align-items:center;gap:12px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13px;margin:0 0 var(--space-3);color:var(--color-muted)}
+  .eyebrow .num{color:var(--color-primary);font-family:var(--font-display);font-size:15px;letter-spacing:.04em}
+  .eyebrow::after{content:"";flex:1;max-width:120px;height:2px;background:var(--color-line)}
+  .lede{color:var(--color-muted);font-size:clamp(17px,2.2vw,20px);max-width:58ch;font-weight:500}
+  .accent{color:var(--color-primary)}
+
+  /* Boutons — cibles ≥ 48px, bords nets */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;
+    font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:.03em;font-size:16px;
+    text-decoration:none;border:2px solid var(--color-fg);border-radius:0;cursor:pointer;
+    transition:background var(--dur-fast),color var(--dur-fast),border-color var(--dur-fast),transform var(--dur-fast),box-shadow var(--dur-fast)}
+  .btn svg{width:20px;height:20px;flex:none}
+  .btn-primary{background:var(--color-primary);border-color:var(--color-primary);color:var(--color-on-primary);box-shadow:6px 6px 0 var(--color-fg)}
+  .btn-primary:hover{background:var(--color-primary-hover);border-color:var(--color-primary-hover);transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--color-fg)}
+  .btn-primary:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--color-fg)}
+  .btn-outline{background:transparent;color:var(--color-fg)}
+  .btn-outline:hover{background:var(--color-fg);color:var(--color-bg)}
+  .btn-sm{min-height:44px;padding:0 18px;font-size:14px;box-shadow:none}
+  .btn-sm:hover,.btn-sm:active{box-shadow:none;transform:none}
+
+  /* Nav */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-bottom:2px solid var(--color-fg);padding-top:env(safe-area-inset-top,0)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-family:var(--font-display);font-weight:900;font-size:26px;text-decoration:none;text-transform:uppercase;line-height:1}
+  .logo span{color:var(--color-primary)}
+  .nav-links{display:flex;align-items:center;gap:28px}
+  .nav-links a.txt{display:none;text-decoration:none;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.06em;padding:10px 0;
+    background:linear-gradient(var(--color-primary),var(--color-primary)) 0 100%/0 2px no-repeat;transition:background-size var(--dur)}
+  .nav-links a.txt:hover{background-size:100% 2px}
+  @media(min-width:860px){.nav-links a.txt{display:inline-block}}
+
+  /* Hero — asymétrique */
+  .hero{padding:var(--space-5) 0 0}
+  .hero-grid{display:grid;gap:var(--space-4)}
+  @media(min-width:1000px){.hero-grid{grid-template-columns:1.25fr .75fr;align-items:end}}
+  .hero h1{font-size:clamp(48px,11.5vw,128px)}
+  .hero h1 .hl{display:inline-block;background:var(--color-primary);color:var(--color-on-primary);padding:.04em .14em 0;margin-left:-.04em}
+  .hero-side p{margin:0 0 var(--space-3);font-size:clamp(17px,2.2vw,20px);color:var(--color-muted);font-weight:500;max-width:44ch}
+  .hero-side p strong{color:var(--color-fg)}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:16px}
+  .badge{display:inline-flex;align-items:center;gap:10px;margin-bottom:var(--space-3);border:2px solid var(--color-line);padding:8px 14px;
+    font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+  .badge .dot{width:10px;height:10px;background:var(--color-primary);border-radius:50%;animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  .hero-visual{margin-top:var(--space-5)}
+
+  /* Emplacements visuels — ratio réservé (CLS) */
+  .slot{position:relative;overflow:hidden;background:var(--color-surface);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;
+    padding:var(--space-3);aspect-ratio:4/3;width:100%;border:2px solid var(--color-fg)}
+  .slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease-out)}
+  .slot:hover img{transform:scale(1.03)}
+  .slot.wide{aspect-ratio:16/7}
+  .slot .ph{position:absolute;inset:0;background:
+      repeating-linear-gradient(135deg,transparent 0 22px,rgba(255,247,237,.035) 22px 24px)}
+  .slot .cap{position:relative;display:flex;flex-direction:column;gap:6px}
+  .slot .cap b{font-family:var(--font-display);font-weight:900;font-size:clamp(20px,3vw,30px);text-transform:uppercase;line-height:1}
+  .slot .cap small{color:var(--color-muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+  .slot .tagl{position:absolute;top:var(--space-2);left:var(--space-2);background:var(--color-primary);color:var(--color-on-primary);
+    font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.08em;padding:6px 10px}
+
+  /* Chiffres */
+  .proof{border-block:2px solid var(--color-fg);margin-top:var(--space-6)}
+  .proof-in{display:grid;grid-template-columns:repeat(3,1fr)}
+  .proof-cell{padding:var(--space-3) 8px;text-align:center;border-right:2px solid var(--color-fg)}
+  .proof-cell:last-child{border-right:none}
+  @media(min-width:720px){.proof-cell{padding:var(--space-4) var(--space-3);text-align:left}}
+  .proof-num{font-family:var(--font-display);font-weight:900;font-size:clamp(32px,8vw,80px);line-height:1;font-variant-numeric:tabular-nums}
+  .proof-num .accent{font-size:.6em;vertical-align:.4em}
+  .proof-lbl{margin-top:8px;font-weight:600;font-size:clamp(13px,2.4vw,17px);color:var(--color-muted);line-height:1.25}
+
+  /* Bandeau défilant */
+  .marquee{overflow:hidden;background:var(--color-primary);color:var(--color-on-primary);border-bottom:2px solid var(--color-fg)}
+  .mq-track{display:flex;width:max-content;animation:mq 28s linear infinite}
+  .mq-track span{font-family:var(--font-display);font-weight:900;text-transform:uppercase;font-size:clamp(26px,5vw,44px);padding:14px 0;white-space:nowrap}
+  .mq-track span i{display:inline-block;width:.42em;height:.42em;background:currentColor;margin:0 .6em;vertical-align:.18em;transform:rotate(45deg)}
+  @keyframes mq{to{transform:translateX(-50%)}}
+
+  section.block{padding:var(--space-6) 0;border-bottom:2px solid var(--color-line)}
+
+  /* Réalisations — grille bento */
+  .sec-head{display:grid;gap:var(--space-3);margin-bottom:var(--space-4)}
+  @media(min-width:900px){.sec-head{grid-template-columns:1fr 1fr;align-items:end}}
+  .sec-head h2{font-size:clamp(38px,7vw,80px)}
+  .bento{display:grid;gap:var(--space-2);grid-template-columns:1fr}
+  @media(min-width:720px){
+    .bento{grid-template-columns:repeat(6,1fr)}
+    .bento .slot{aspect-ratio:auto;min-height:300px}
+    .b1{grid-column:span 4;grid-row:span 2}.b2{grid-column:span 2}.b3{grid-column:span 2}
+    .b4{grid-column:span 2}.b5{grid-column:span 2}.b6{grid-column:span 2}
+  }
+
+  /* Argument (étape 1 : le problème) */
+  .argument{background:var(--color-fg);color:var(--color-bg);border-bottom:none}
+  .argument .eyebrow{color:#5a524a}
+  .argument .eyebrow::after{background:rgba(10,10,10,.2)}
+  .argument .eyebrow .num{color:#c2410c}
+  .arg-grid{display:grid;gap:var(--space-4)}
+  @media(min-width:1000px){.arg-grid{grid-template-columns:1.4fr .6fr;align-items:end}}
+  .argument h2{font-size:clamp(34px,6.2vw,76px)}
+  .argument h2 em{font-style:normal;color:#c2410c}
+  .argument .lede{color:#3d3833}
+  .timer{border:2px solid var(--color-bg);padding:var(--space-3)}
+  .timer .big{font-family:var(--font-display);font-weight:900;font-size:clamp(72px,12vw,140px);line-height:.85;color:#c2410c}
+  .timer p{margin:12px 0 0;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:14px}
+
+  /* Prestations (étape 2 : la solution) */
+  .services{border-top:2px solid var(--color-fg)}
+  .srow{display:grid;grid-template-columns:auto 1fr;gap:6px var(--space-3);padding:var(--space-4) 0;border-bottom:2px solid var(--color-line);
+    transition:background var(--dur),padding var(--dur)}
+  @media(min-width:900px){.srow{grid-template-columns:90px 1fr 1.1fr;align-items:baseline}}
+  .srow .n{font-family:var(--font-display);font-weight:800;color:var(--color-primary);font-size:20px}
+  .srow h3{font-size:clamp(24px,4vw,40px);font-weight:900}
+  .srow p{grid-column:2;color:var(--color-muted);margin:0;font-weight:500;max-width:52ch}
+  @media(min-width:900px){.srow p{grid-column:auto}}
+  .srow.star{background:var(--color-primary);color:var(--color-on-primary);border:2px solid var(--color-fg);padding:var(--space-4) var(--space-3);margin-top:var(--space-3);box-shadow:10px 10px 0 var(--color-fg)}
+  .srow.star .n{color:var(--color-on-primary)}
+  .srow.star p{color:var(--color-on-primary);font-weight:600;font-size:18px}
+  .srow.star .tag{grid-column:1/-1;justify-self:start;background:var(--color-on-primary);color:var(--color-primary);font-weight:800;font-size:12px;padding:6px 12px;
+    text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+
+  /* Process */
+  .steps{display:grid;gap:0;border:2px solid var(--color-fg);margin-top:var(--space-5);counter-reset:s}
+  @media(min-width:860px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{padding:var(--space-3);border-bottom:2px solid var(--color-fg)}
+  .step:last-child{border-bottom:none}
+  @media(min-width:860px){.step{border-bottom:none;border-right:2px solid var(--color-fg)}.step:last-child{border-right:none}}
+  .step svg{width:32px;height:32px;color:var(--color-primary);margin-bottom:var(--space-2)}
+  .step h3{font-size:22px;margin-bottom:8px}
+  .step p{margin:0;color:var(--color-muted);font-weight:500}
+
+  /* Confiance */
+  .quotes{display:grid;gap:var(--space-2);margin-top:var(--space-4)}
+  @media(min-width:860px){.quotes{grid-template-columns:repeat(3,1fr)}}
+  .quote{background:var(--color-surface);border:2px solid var(--color-line);padding:var(--space-3);margin:0;display:flex;flex-direction:column;gap:var(--space-2)}
+  .stars{display:flex;gap:4px;color:var(--color-primary)}
+  .stars svg{width:18px;height:18px}
+  .quote blockquote{margin:0;font-size:18px;font-weight:500;flex:1}
+  .quote figcaption{color:var(--color-muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  .brands{margin-top:var(--space-4);display:flex;flex-wrap:wrap;gap:12px}
+  .brand-chip{border:2px dashed #4a4540;padding:12px 20px;color:var(--color-muted);font-family:var(--font-display);font-weight:800;font-size:15px;text-transform:uppercase}
+
+  /* Devis (étape 3 : l'action) */
+  .devis-grid{display:grid;gap:var(--space-5)}
+  @media(min-width:1000px){.devis-grid{grid-template-columns:.9fr 1.1fr}}
+  .devis h2{font-size:clamp(38px,6.5vw,76px)}
+  .devis .lede{margin-top:var(--space-3)}
+  .perks{list-style:none;padding:0;margin:var(--space-4) 0 0;display:grid;gap:14px}
+  .perks li{display:flex;gap:12px;align-items:flex-start;font-weight:600}
+  .perks svg{width:22px;height:22px;flex:none;color:var(--color-primary);margin-top:2px}
+  .form{background:var(--color-surface);border:2px solid var(--color-fg);padding:clamp(20px,4vw,40px);box-shadow:10px 10px 0 var(--color-primary)}
+  .field{margin-bottom:20px}
+  .field label{display:block;font-weight:700;font-size:13px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em}
+  .field label .opt{color:var(--color-muted);font-weight:500;text-transform:none;letter-spacing:0}
+  .field label .req{color:var(--color-primary)}
+  .field input,.field select,.field textarea{width:100%;min-height:52px;background:var(--color-bg);color:var(--color-fg);border:2px solid #4a4540;padding:14px;
+    font:inherit;font-size:16px;border-radius:0;transition:border-color var(--dur-fast)}
+  .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff7ed' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center;background-size:20px;padding-right:44px}
+  .field textarea{min-height:110px;resize:vertical}
+  .field input::placeholder,.field textarea::placeholder{color:#8a8279}
+  .field input:hover,.field select:hover,.field textarea:hover{border-color:var(--color-muted)}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--color-primary)}
+  .field .err{display:none;color:var(--color-error);font-size:14px;font-weight:600;margin-top:8px}
+  .field.invalid select{border-color:var(--color-error)}
+  .field.invalid .err{display:flex;gap:6px;align-items:center}
+  .form-ctas{display:flex;flex-wrap:wrap;gap:16px;margin-top:var(--space-3)}
+  .form-note{color:var(--color-muted);font-size:15px;margin:var(--space-3) 0 0;font-weight:500}
+  .form-note a{color:var(--color-fg);text-underline-offset:3px}
+
+  footer{padding:var(--space-5) 0 calc(var(--space-5) + env(safe-area-inset-bottom,0));color:var(--color-muted)}
+  .foot-big{font-family:var(--font-display);font-weight:900;text-transform:uppercase;font-size:clamp(56px,16vw,220px);line-height:.85;color:var(--color-fg);margin:0 0 var(--space-4)}
+  .foot-big span{color:var(--color-primary)}
+  .foot-in{display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:space-between;align-items:center;border-top:2px solid var(--color-line);padding-top:var(--space-3)}
+  .foot-links{display:flex;gap:8px 24px;flex-wrap:wrap}
+  .foot-links a{text-decoration:none;text-transform:uppercase;font-size:14px;letter-spacing:.06em;font-weight:700;padding:10px 0;transition:color var(--dur-fast)}
+  .foot-links a:hover{color:var(--color-primary)}
+  .foot-sub{font-size:14px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+
+  /* Barre CTA mobile */
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0));
+    background:rgba(10,10,10,.94);border-top:2px solid var(--color-fg);transform:translateY(110%);transition:transform var(--dur) var(--ease-out)}
+  .mbar.show{transform:none}
+  .mbar .btn{flex:1;box-shadow:none;min-height:48px;font-size:14px;padding:0 12px}
+  @media(min-width:860px){.mbar{display:none}}
+  @media(max-width:859px){footer{padding-bottom:calc(var(--space-6) + 40px)}}
+
+  /* Apparition au scroll — opacité/transform uniquement */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .45s var(--ease-out),transform .45s var(--ease-out)}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}.d5{transition-delay:.3s}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}.reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+
+<!-- Icônes SVG (style Lucide) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.53 14.95L2 22l5.2-1.46A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.08.86.83-3-.2-.31a8.2 8.2 0 1 1 6.95 3.78Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.96-.14.17-.29.19-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.43.25-.4.72-1.34.08-.16.04-.31-.02-.43l-.76-1.83c-.2-.48-.4-.41-.56-.42h-.47a.9.9 0 0 0-.66.31 2.77 2.77 0 0 0-.86 2.06 4.8 4.8 0 0 0 1 2.55 11 11 0 0 0 4.2 3.7c1.56.68 2.18.73 2.96.62.48-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><path d="m4 12 5 5L20 6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H8l-4 4z"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19l3-1 8-8a5 5 0 0 0 1-7 5 5 0 0 0-7 1l-8 8-1 3z"/><circle cx="14.5" cy="9.5" r="1.5"/></symbol>
+</svg>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="logo" aria-label="Graph'Eat, retour en haut">Graph<span>'</span>Eat</a>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a class="txt" href="#realisations">Réalisations</a>
+      <a class="txt" href="#prestations">Prestations</a>
+      <a class="txt" href="#avis">Avis</a>
+      <a class="btn btn-primary btn-sm" href="#devis">Devis gratuit</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="badge reveal"><span class="dot" aria-hidden="true"></span>Graphiste 100% restauration</span>
+          <h1 class="reveal d1">Des visuels food qui font <span class="hl">commander.</span></h1>
+        </div>
+        <div class="hero-side">
+          <p class="reveal d2">Je suis graphiste spécialisé restauration <strong>et je fais tourner mes propres restos sur Uber&nbsp;Eats.</strong> Je sais ce qui déclenche la commande, pas juste ce qui fait joli.</p>
+          <div class="hero-ctas reveal d3">
+            <a class="btn btn-primary" href="#devis">Demander un devis <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-outline" href="#realisations">Voir les projets</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual reveal d4">
+        <div class="slot wide" role="img" aria-label="Emplacement : visuel phare (plat ou marque)">
+          <div class="ph"></div>
+          <span class="tagl">Visuel phare</span>
+          <div class="cap"><b>Ton plat signature</b><small>Remplace par ton meilleur visuel</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proof" aria-label="Chiffres clés">
+      <div class="wrap proof-in">
+        <div class="proof-cell reveal"><div class="proof-num"><span class="accent">+</span><span data-count="8">8</span> ans</div><div class="proof-lbl">à créer pour la restauration</div></div>
+        <div class="proof-cell reveal d1"><div class="proof-num"><span class="accent">+</span><span data-count="200">200</span></div><div class="proof-lbl">projets livrés en France</div></div>
+        <div class="proof-cell reveal d2"><div class="proof-num"><span data-count="100">100</span><span class="accent">%</span></div><div class="proof-lbl">food, rien d'autre</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="mq-track">
+      <span>Branding<i></i>Menus<i></i>Contenu<i></i>Photo<i></i>Uber Eats<i></i>Deliveroo<i></i></span>
+      <span>Branding<i></i>Menus<i></i>Contenu<i></i>Photo<i></i>Uber Eats<i></i>Deliveroo<i></i></span>
+    </div>
+  </div>
+
+  <section class="block" id="realisations">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow reveal"><span class="num">01</span>Réalisations</p>
+          <h2 class="reveal d1">Le travail parle <span class="accent">en premier.</span></h2>
+        </div>
+        <p class="lede reveal d2">Identités, cartes, vitrines de livraison : chaque visuel est pensé pour un seul objectif, faire passer à la commande.</p>
+      </div>
+      <div class="bento">
+        <div class="slot b1 reveal" role="img" aria-label="Emplacement : avant / après Uber Eats"><div class="ph"></div><span class="tagl">Best-seller</span><div class="cap"><b>Avant / Après Uber Eats</b><small>Vitrine livraison</small></div></div>
+        <div class="slot b2 reveal d1" role="img" aria-label="Emplacement : identité de marque"><div class="ph"></div><div class="cap"><b>Identité de marque</b><small>Logo &amp; charte</small></div></div>
+        <div class="slot b3 reveal d2" role="img" aria-label="Emplacement : carte livraison"><div class="ph"></div><div class="cap"><b>Carte livraison</b><small>Menu plateformes</small></div></div>
+        <div class="slot b4 reveal" role="img" aria-label="Emplacement : visuel produit"><div class="ph"></div><div class="cap"><b>Visuel produit</b><small>Photo &amp; retouche</small></div></div>
+        <div class="slot b5 reveal d1" role="img" aria-label="Emplacement : menu board"><div class="ph"></div><div class="cap"><b>Menu board</b><small>Print en salle</small></div></div>
+        <div class="slot b6 reveal d2" role="img" aria-label="Emplacement : réseaux sociaux"><div class="ph"></div><div class="cap"><b>Réseaux sociaux</b><small>Posts &amp; reels</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block argument">
+    <div class="wrap arg-grid">
+      <div>
+        <p class="eyebrow reveal"><span class="num">02</span>Le problème</p>
+        <h2 class="reveal d1">Sur Uber Eats, ton client ne goûte pas ton plat. Il le choisit <em>avec ses yeux.</em></h2>
+        <p class="lede reveal d2" style="margin-top:24px">Une photo prise au téléphone entre deux services fait scroller. Un visuel pro fait commander. Ta vitrine en ligne, c'est ta première bouchée : autant qu'elle donne faim.</p>
+      </div>
+      <div class="timer reveal d3">
+        <div class="big">2s</div>
+        <p>Le temps qu'il te reste pour être choisi dans le fil de l'appli.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="prestations">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow reveal"><span class="num">03</span>La solution</p>
+          <h2 class="reveal d1">Tout ce dont ton resto a besoin, <span class="accent">côté image.</span></h2>
+        </div>
+      </div>
+      <div class="services">
+        <div class="srow reveal"><span class="n">01</span><h3>Identité de marque</h3><p>Logo, charte, univers. Une marque qu'on reconnaît avant même de lire le nom.</p></div>
+        <div class="srow reveal"><span class="n">02</span><h3>Cartes &amp; menus</h3><p>Menus plateformes, menu boards, print. Lisibles, appétissants, pensés pour la commande.</p></div>
+        <div class="srow reveal"><span class="n">03</span><h3>Contenu réseaux</h3><p>Carrousels, reels, posts. De quoi nourrir ton Insta sans y passer tes nuits.</p></div>
+        <div class="srow reveal"><span class="n">04</span><h3>Photo &amp; visuels produits</h3><p>Tes plats sous leur meilleur angle. Vrais, mais magnétiques.</p></div>
+        <div class="srow star reveal">
+          <span class="tag">Le service que les autres n'ont pas</span>
+          <span class="n">05</span><h3>Vitrine Uber Eats &amp; Deliveroo</h3>
+          <p>Je crée tes visuels <strong>et</strong> je les mets en ligne sur tes plateformes. La plupart des graphistes n'ont jamais géré de resto, moi si. Je sais exactement ce qui fait cliquer « commander ».</p>
+        </div>
+      </div>
+
+      <div class="steps" aria-label="Comment ça se passe">
+        <div class="step reveal"><svg aria-hidden="true"><use href="#i-chat"/></svg><h3>1. On échange</h3><p>Tu me parles de ton resto et de tes plateformes. Devis clair sous 24&nbsp;h.</p></div>
+        <div class="step reveal d1"><svg aria-hidden="true"><use href="#i-pen"/></svg><h3>2. Je crée</h3><p>Propositions, retours, ajustements. Tu valides chaque étape.</p></div>
+        <div class="step reveal d2"><svg aria-hidden="true"><use href="#i-rocket"/></svg><h3>3. On met en ligne</h3><p>Je publie tout sur Uber Eats, Deliveroo et tes réseaux. Tu n'as rien à gérer.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="avis">
+    <div class="wrap">
+      <p class="eyebrow reveal"><span class="num">04</span>Confiance</p>
+      <h2 class="reveal d1" style="font-size:clamp(38px,6.5vw,72px)">Ils m'ont fait confiance.</h2>
+      <div class="quotes">
+        <figure class="quote reveal"><div class="stars" role="img" aria-label="5 étoiles sur 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><blockquote>« Avis client à remplacer : une phrase courte et concrète sur le résultat obtenu. »</blockquote><figcaption>Nom, Resto</figcaption></figure>
+        <figure class="quote reveal d1"><div class="stars" role="img" aria-label="5 étoiles sur 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><blockquote>« Avis client à remplacer : ce qui a changé après le travail (commandes, image, temps gagné). »</blockquote><figcaption>Nom, Resto</figcaption></figure>
+        <figure class="quote reveal d2"><div class="stars" role="img" aria-label="5 étoiles sur 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div><blockquote>« Avis client à remplacer : recommandation en une ligne. »</blockquote><figcaption>Nom, Resto</figcaption></figure>
+      </div>
+      <div class="brands reveal" aria-label="Marques accompagnées">
+        <span class="brand-chip">Marque 1</span><span class="brand-chip">Marque 2</span><span class="brand-chip">Marque 3</span><span class="brand-chip">Marque 4</span><span class="brand-chip">+ la tienne</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block devis" id="devis">
+    <div class="wrap devis-grid">
+      <div>
+        <p class="eyebrow reveal"><span class="num">05</span>Devis gratuit</p>
+        <h2 class="reveal d1">Un resto. Une image qui fait <span class="accent">commander.</span> On en parle&nbsp;?</h2>
+        <p class="lede reveal d2">Dis-moi ce dont tu as besoin, je te réponds avec un devis clair et sans engagement.</p>
+        <ul class="perks reveal d3">
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Réponse en direct, sous 24&nbsp;h</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Devis gratuit et sans engagement</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Partout en France, 100% en ligne</li>
+        </ul>
+      </div>
+
+      <form class="form reveal d2" id="devis-form" novalidate>
+        <div class="field"><label for="f-nom">Ton prénom <span class="opt">(optionnel)</span></label><input id="f-nom" name="nom" type="text" autocomplete="given-name" placeholder="Ex. Karim"></div>
+        <div class="field"><label for="f-resto">Nom de ton resto <span class="opt">(optionnel)</span></label><input id="f-resto" name="resto" type="text" autocomplete="organization" placeholder="Ex. Burger House"></div>
+        <div class="field" id="field-besoin">
+          <label for="f-besoin">Ton besoin <span class="req" aria-hidden="true">*</span></label>
+          <select id="f-besoin" name="besoin" required aria-describedby="err-besoin">
+            <option value="">Choisis une prestation…</option>
+            <option>Identité de marque / logo</option><option>Cartes &amp; menus</option>
+            <option>Contenu réseaux</option><option>Photo &amp; visuels produits</option>
+            <option>Vitrine Uber Eats / Deliveroo</option><option>Plusieurs / je ne sais pas encore</option>
+          </select>
+          <p class="err" id="err-besoin" role="alert"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Choisis une prestation pour que je te réponde précisément.</p>
+        </div>
+        <div class="field"><label for="f-msg">Un mot sur ton projet <span class="opt">(optionnel)</span></label><textarea id="f-msg" name="msg" placeholder="Parle-moi de ton resto, de tes plateformes…"></textarea></div>
+        <div class="form-ctas">
+          <button class="btn btn-primary" id="send-wa" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg>Envoyer sur WhatsApp</button>
+          <button class="btn btn-outline" id="send-mail" type="button"><svg aria-hidden="true"><use href="#i-mail"/></svg>Par mail</button>
+        </div>
+        <p class="form-note">Tu préfères écrire directement&nbsp;? <a id="wa-inline" href="#" target="_blank" rel="noopener">Ouvre WhatsApp</a>.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-big" aria-hidden="true">Graph<span>'</span>Eat</p>
+    <div class="foot-in">
+      <span class="foot-sub">100% food · partout en France, en ligne</span>
+      <nav class="foot-links" aria-label="Contact">
+        <a id="foot-wa" href="#" target="_blank" rel="noopener">WhatsApp</a><a id="foot-mail" href="#">Email</a><a href="#devis">Devis</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar">
+  <a class="btn btn-primary" href="#devis">Devis gratuit</a>
+  <a class="btn btn-outline" id="mbar-wa" href="#" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+</div>
+
+<script>
+  // ====== À PERSONNALISER ======
+  var WHATSAPP = "33600000000";        // ton numéro international sans +
+  var EMAIL = "contact@grapheat.fr";   // ton email
+  // =============================
+  var waBase = "https://wa.me/" + WHATSAPP;
+  var hello = "Bonjour Graph'Eat, j'aimerais un devis pour mon resto.";
+  var waHello = waBase + "?text=" + encodeURIComponent(hello);
+  ["wa-inline", "foot-wa", "mbar-wa"].forEach(function (id) { document.getElementById(id).href = waHello; });
+  document.getElementById("foot-mail").href = "mailto:" + EMAIL;
+
+  var $ = function (id) { return document.getElementById(id); };
+  function buildMessage() {
+    var n = $("f-nom").value.trim(), r = $("f-resto").value.trim(), b = $("f-besoin").value, m = $("f-msg").value.trim();
+    var t = "Bonjour Graph'Eat !";
+    if (n) t += " Moi c'est " + n + ".";
+    if (r) t += " Je gère " + r + ".";
+    if (b) t += " Besoin : " + b + ".";
+    if (m) t += " " + m;
+    return t;
+  }
+  var besoinField = $("field-besoin");
+  function validate() {
+    var ok = !!$("f-besoin").value;
+    besoinField.classList.toggle("invalid", !ok);
+    $("f-besoin").setAttribute("aria-invalid", ok ? "false" : "true");
+    if (!ok) $("f-besoin").focus();
+    return ok;
+  }
+  $("f-besoin").addEventListener("change", function () { if (this.value) { besoinField.classList.remove("invalid"); this.setAttribute("aria-invalid", "false"); } });
+  $("devis-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!validate()) return;
+    window.open(waBase + "?text=" + encodeURIComponent(buildMessage()), "_blank", "noopener");
+  });
+  $("send-mail").addEventListener("click", function () {
+    if (!validate()) return;
+    location.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Demande de devis — Graph'Eat") + "&body=" + encodeURIComponent(buildMessage());
+  });
+
+  // Barre CTA mobile : visible après le hero, masquée sur la section devis
+  var mbar = $("mbar"), hero = document.querySelector(".hero"), devis = $("devis");
+  var heroOut = false, devisIn = false;
+  function syncBar() { mbar.classList.toggle("show", heroOut && !devisIn); }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) { heroOut = !es[0].isIntersecting; syncBar(); }).observe(hero);
+    new IntersectionObserver(function (es) { devisIn = es[0].isIntersecting; syncBar(); }).observe(devis);
+  }
+
+  // Apparitions + compteurs
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function countUp(el) {
+    var target = +el.dataset.count;
+    if (reduce) { el.textContent = target; return; }
+    var t0 = performance.now(), dur = 900;
+    (function tick(t) {
+      var p = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
+  function fire(el) {
+    el.classList.add("in");
+    var n = el.querySelector("[data-count]");
+    if (n && !n.dataset.done) { n.dataset.done = "1"; countUp(n); }
+  }
+  var reveals = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) { reveals.forEach(fire); }
+  else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { fire(e.target); io.unobserve(e.target); } });
+    }, { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+    reveals.forEach(function (el) { io.observe(el); });
+  }
+</script>
+</body>
+</html>
