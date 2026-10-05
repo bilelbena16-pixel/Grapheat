@@ -335,6 +335,10 @@
   .fx-wa::before{border-color:#25d366}
   @media(hover:hover){.fx-wa:hover{background:#1ebe5a}}
 
+  /* Barre du dessus : pleine largeur, sans bord */
+  header.nav{top:0;margin:0;border:none!important;border-radius:0;box-shadow:none}
+  header.nav.fx-hide{transform:translateY(-100%)}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
