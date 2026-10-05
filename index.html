@@ -456,6 +456,9 @@
   main > #prestations{padding-top:24px;margin-top:0}
   .argument .lede{margin-bottom:0}
 
+  /* Prestations : sans numéros */
+  #prestations .srow::after{content:none!important;display:none!important}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
