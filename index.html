@@ -398,6 +398,40 @@
     78%{opacity:0}}
   @media(prefers-reduced-motion:reduce){.fx-crypt,.fx-crypt::before,.fx-crypt::after{animation:none}}
 
+  /* Section « Avant de goûter ton plat » : sans carte */
+  main > section.argument{margin:0;border:none!important;border-radius:0;box-shadow:none;background:none}
+
+  /* Prestations : carrousel pleine largeur, une prestation à la fois (droite → gauche) */
+  #prestations .pad{display:block}
+  .fx-slider{position:relative;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden}
+  .fx-slides{display:flex;will-change:transform}
+  #prestations .fx-slides > .srow{flex:0 0 100%;aspect-ratio:auto;min-height:clamp(340px,62vh,580px);margin:0;transform:none;
+    display:flex;flex-direction:column;justify-content:flex-end;gap:14px;
+    padding:clamp(28px,5vw,72px) clamp(20px,5vw,64px);border:none!important;border-top:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;
+    border-radius:0;box-shadow:none;background:linear-gradient(180deg,#121212,#070707);color:var(--fg)}
+  #prestations .fx-slides > .srow:hover{padding-left:clamp(20px,5vw,64px);background:linear-gradient(180deg,#121212,#070707);color:var(--fg);transform:none}
+  #prestations .fx-slides > .srow:hover p{color:var(--muted)}
+  #prestations .fx-slides > .srow h3{font-size:clamp(30px,6vw,84px);margin:0;max-width:16ch}
+  #prestations .fx-slides > .srow p{font-size:clamp(17px,1.8vw,21px);max-width:58ch}
+  #prestations .fx-slides > .srow::after{top:clamp(28px,5vw,72px);left:auto;right:clamp(20px,5vw,64px);font-size:clamp(64px,13vw,190px);
+    -webkit-text-stroke:1px rgba(255,255,255,.35)}
+  #prestations .fx-slides > .fx-clone::after{content:"01";counter-increment:none}
+  #prestations .fx-slides > .srow.star{background:#fff;color:#000}
+  #prestations .fx-slides > .srow.star p{color:#222}
+  #prestations .fx-slides > .srow.star::after{-webkit-text-stroke-color:rgba(0,0,0,.35)}
+  #prestations .fx-slides > .srow.star .tag{background:#000;color:#fff;margin:0 0 6px}
+  #prestations .fx-slides > .srow.star .tag::after{border-color:#000}
+  .fx-dots{display:flex;gap:10px;margin-top:22px}
+  .fx-dots button{flex:1;max-width:140px;height:44px;padding:0;border:0;background:none;cursor:pointer;display:flex;align-items:center}
+  .fx-dots button span{position:relative;display:block;width:100%;height:3px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden}
+  .fx-dots button span::after{content:"";position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:0 50%}
+  .fx-dots button.done span::after{transform:scaleX(1)}
+  .fx-dots button.on span::after{animation:dot-fill var(--hold,2.7s) linear forwards}
+  .fx-slider.paused + .fx-dots button.on span::after{animation-play-state:paused}
+  .fx-dots button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  @keyframes dot-fill{to{transform:scaleX(1)}}
+  @media(prefers-reduced-motion:reduce){.fx-dots button.on span::after{animation:none;transform:scaleX(1)}}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
@@ -604,6 +638,52 @@
     wa.href = (typeof waHello !== "undefined") ? waHello : "https://wa.me/";
     setTimeout(function(){ wa.classList.add("show"); }, 600);
   });
+
+
+  // Prestations : carrousel saccadé — glisse vers la gauche, reste 2 s, passe à la suivante
+  (function(){
+    var pad = document.querySelector("#prestations .pad"); if (!pad) return;
+    var rows = Array.prototype.slice.call(pad.querySelectorAll(".srow")); if (rows.length < 2) return;
+    var HOLD = 2000, MOVE = 700;
+    var slider = document.createElement("div"); slider.className = "fx-slider";
+    slider.setAttribute("role", "region"); slider.setAttribute("aria-roledescription", "carrousel"); slider.setAttribute("aria-label", "Prestations");
+    var track = document.createElement("div"); track.className = "fx-slides";
+    rows.forEach(function(r){ r.classList.remove("reveal"); track.appendChild(r); });
+    var first = rows[0].cloneNode(true); first.classList.add("fx-clone"); first.setAttribute("aria-hidden", "true"); track.appendChild(first);
+    slider.appendChild(track);
+    var dots = document.createElement("div"); dots.className = "fx-dots";
+    rows.forEach(function(r, k){
+      var b = document.createElement("button"); b.type = "button";
+      var h = r.querySelector("h3"); b.setAttribute("aria-label", "Prestation " + (k + 1) + (h ? " : " + h.textContent : ""));
+      b.innerHTML = "<span></span>"; b.addEventListener("click", function(){ go(k, true); schedule(); }); dots.appendChild(b);
+    });
+    var head = pad.querySelector(".serv-head");
+    pad.insertBefore(dots, head ? head.nextSibling : pad.firstChild);
+    pad.insertBefore(slider, dots);
+    dots.style.setProperty("--hold", (HOLD + MOVE) / 1000 + "s");
+
+    var i = 0, timer = null, paused = false;
+    function paint(){
+      var k = i % rows.length;
+      Array.prototype.forEach.call(dots.children, function(b, j){
+        b.classList.remove("on"); b.classList.toggle("done", j < k);
+        b.setAttribute("aria-current", j === k ? "true" : "false");
+      });
+      var on = dots.children[k]; void on.offsetWidth; if (!reduce) on.classList.add("on"); else on.classList.add("done");
+    }
+    function go(n, animate){
+      track.style.transition = animate && !reduce ? "transform " + MOVE + "ms cubic-bezier(.75,0,.2,1)" : "none";
+      track.style.transform = "translateX(" + (-n * 100) + "%)"; i = n; paint();
+    }
+    track.addEventListener("transitionend", function(){ if (i === rows.length) go(0, false); });
+    function schedule(){ clearTimeout(timer); if (reduce || paused) return; timer = setTimeout(function(){ go(i + 1, true); schedule(); }, HOLD + MOVE); }
+    function pause(v){ paused = v; slider.classList.toggle("paused", v); if (v) clearTimeout(timer); else schedule(); }
+    slider.addEventListener("mouseenter", function(){ pause(true); });
+    slider.addEventListener("mouseleave", function(){ pause(false); });
+    slider.addEventListener("focusin", function(){ pause(true); });
+    slider.addEventListener("focusout", function(){ pause(false); });
+    go(0, false); schedule();
+  })();
 
   if (reduce) return;
 
