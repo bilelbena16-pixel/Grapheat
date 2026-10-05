@@ -363,6 +363,41 @@
   #prestations .srow.star::after{left:auto;right:clamp(28px,4vw,48px);top:clamp(28px,4vw,48px)}
   #prestations .srow.star .tag{align-self:flex-start;margin-right:96px}
 
+  /* Effet « chaîne TV cryptée » sur quelques mots */
+  .fx-crypt{position:relative;display:inline-block;animation:crypt-shake 4.6s steps(1) infinite;animation-delay:var(--d,0s)}
+  .fx-crypt::before,.fx-crypt::after{content:attr(data-text);content:attr(data-text) / "";position:absolute;left:0;top:0;width:100%;height:100%;
+    pointer-events:none;opacity:0;white-space:nowrap;animation:crypt-a 4.6s steps(1) infinite;animation-delay:var(--d,0s);
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.09) 0 1px,transparent 1px 3px)}
+  .fx-crypt::after{animation-name:crypt-b;color:rgba(255,255,255,.55)}
+  .hero h1.fx-done .fx-w{overflow:visible}
+  @keyframes crypt-shake{
+    0%,14%,100%{transform:none;text-shadow:none;opacity:1}
+    1%{transform:translateX(-.04em) skewX(-8deg)}
+    3%{transform:translateX(.05em);text-shadow:.07em 0 rgba(255,255,255,.45),-.07em 0 rgba(255,255,255,.25)}
+    5%{transform:translateX(-.02em) scaleY(1.08)}
+    7%{transform:translateX(.03em) skewX(10deg);opacity:.65}
+    9%{transform:none;opacity:1;text-shadow:-.09em 0 rgba(255,255,255,.4)}
+    11%{transform:translateX(.02em) skewX(-4deg);text-shadow:.04em 0 rgba(255,255,255,.3)}
+    13%{transform:none;text-shadow:none}}
+  @keyframes crypt-a{
+    0%,13%,100%{opacity:0;clip-path:inset(0 0 100% 0);transform:none}
+    1%{opacity:1;clip-path:inset(8% 0 62% 0);transform:translateX(-.14em)}
+    3%{clip-path:inset(55% 0 22% 0);transform:translateX(.17em)}
+    5%{clip-path:inset(28% 0 48% 0);transform:translateX(-.22em)}
+    7%{clip-path:inset(74% 0 6% 0);transform:translateX(.11em)}
+    9%{clip-path:inset(0 0 78% 0);transform:translateX(-.09em)}
+    11%{clip-path:inset(40% 0 36% 0);transform:translateX(.2em)}
+    12%{opacity:0}}
+  @keyframes crypt-b{
+    0%,13%,100%{opacity:0;clip-path:inset(100% 0 0 0);transform:none}
+    2%{opacity:1;clip-path:inset(62% 0 12% 0);transform:translateX(.2em)}
+    4%{clip-path:inset(14% 0 66% 0);transform:translateX(-.16em)}
+    6%{clip-path:inset(46% 0 30% 0);transform:translateX(.24em)}
+    8%{clip-path:inset(84% 0 0 0);transform:translateX(-.12em)}
+    10%{clip-path:inset(20% 0 58% 0);transform:translateX(.15em)}
+    12%{opacity:0}}
+  @media(prefers-reduced-motion:reduce){.fx-crypt,.fx-crypt::before,.fx-crypt::after{animation:none}}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
@@ -571,6 +606,24 @@
   });
 
   if (reduce) return;
+
+  // Effet « chaîne TV cryptée » : mots ciblés (texte exact tel qu'il apparaît dans la page)
+  var CRYPT = [[".hero h1 u", null], [".argument h2", "2 secondes"], ["#prestations h2", "côté image"], [".trust h2", "confiance"]];
+  CRYPT.forEach(function(c, idx){
+    var el = document.querySelector(c[0]); if (!el) return;
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n, target = c[1];
+    while ((n = walker.nextNode())) {
+      var txt = n.textContent, at = target ? txt.indexOf(target) : (txt.trim() ? 0 : -1);
+      if (at < 0) continue;
+      var word = target || txt;
+      var after = n.splitText(at); after.splitText(word.length);
+      var span = document.createElement("span");
+      span.className = "fx-crypt"; span.setAttribute("data-text", word); span.style.setProperty("--d", (0.8 + idx * 1.15) + "s");
+      after.parentNode.replaceChild(span, after); span.appendChild(after);
+      break;
+    }
+  });
+  if (h1) setTimeout(function(){ h1.classList.add("fx-done"); }, 2400);
 
   // Barre de progression
   var bar = document.createElement("div"); bar.className = "fx-progress"; document.body.appendChild(bar);
