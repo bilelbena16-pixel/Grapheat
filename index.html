@@ -521,6 +521,12 @@
   main > section.trust{padding-bottom:32px;margin-bottom:0}
   main > section.devis{margin-top:var(--g);padding-top:48px}
 
+  /* Bandes défilantes (avis + logos) : fondu des bords sans masque (plus fiable sur mobile) */
+  .fx-marquee{position:relative;-webkit-mask-image:none!important;mask-image:none!important;opacity:1!important;transform:none!important}
+  .fx-marquee::before,.fx-marquee::after{content:"";position:absolute;top:0;bottom:0;width:8%;z-index:2;pointer-events:none}
+  .fx-marquee::before{left:0;background:linear-gradient(90deg,#000,rgba(0,0,0,0))}
+  .fx-marquee::after{right:0;background:linear-gradient(270deg,#000,rgba(0,0,0,0))}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
@@ -701,7 +707,7 @@
     var items = Array.prototype.slice.call(box.children);
     if (!items.length) return;
     items.forEach(function(el){ el.classList.remove("reveal","delay1","delay2","delay3"); });
-    box.classList.add("fx-marquee","reveal"); if (reverse) box.classList.add("fx-rev");
+    box.classList.add("fx-marquee"); box.classList.remove("reveal","delay1","delay2","delay3"); if (reverse) box.classList.add("fx-rev");
     box.style.setProperty("--fx-dur", dur + "s");
     var track = document.createElement("div"); track.className = "fx-track";
     var set = [];
