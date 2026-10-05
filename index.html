@@ -562,6 +562,22 @@
   @media(hover:hover){.ig-cell:hover::after{opacity:1}.ig-cell:hover img{transform:scale(1.06)}}
   .ig-cell:focus-visible{outline:2px solid #fff;outline-offset:-2px}
 
+  /* ===== Lueurs rouges dans le fond ===== */
+  body{background:
+    radial-gradient(640px 520px at 92% 4%,rgba(255,42,42,.16),transparent 70%),
+    radial-gradient(520px 520px at 2% 22%,rgba(255,42,42,.10),transparent 70%),
+    radial-gradient(700px 560px at 100% 44%,rgba(255,42,42,.12),transparent 70%),
+    radial-gradient(560px 520px at 0% 66%,rgba(255,42,42,.11),transparent 70%),
+    radial-gradient(760px 600px at 96% 88%,rgba(255,42,42,.14),transparent 70%),
+    var(--bg);background-repeat:no-repeat}
+
+  /* Lueurs rouges dans les sections à fond noir */
+  main > section.hero{background:radial-gradient(620px 460px at 88% 18%,rgba(255,42,42,.22),transparent 70%)}
+  main > section.argument{background:radial-gradient(560px 420px at 0% 60%,rgba(255,42,42,.18),transparent 70%)}
+  main > section.trust{background:radial-gradient(620px 420px at 100% 20%,rgba(255,42,42,.17),transparent 70%)}
+  main > section.ig{background:radial-gradient(560px 480px at 0% 70%,rgba(255,42,42,.16),transparent 70%)}
+  footer{background:radial-gradient(700px 300px at 50% 120%,rgba(255,42,42,.22),transparent 70%)!important}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
