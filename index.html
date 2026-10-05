@@ -513,6 +513,10 @@
   @media(hover:hover){.fx-ig:hover{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%);filter:brightness(1.08)}}
   footer{padding-bottom:calc(170px + env(safe-area-inset-bottom,0))!important}
 
+  /* Moins d'espace au-dessus de « Ils nous ont fait confiance » */
+  main > #prestations{padding-bottom:0}
+  main > section.trust{padding-top:32px;margin-top:0}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
@@ -549,7 +553,7 @@
   <section class="hero">
     <div class="pad">
       <h1 class="reveal">Des visuels food qui font <u>commander</u>.</h1>
-      <p class="sub reveal delay1">Je suis graphiste spécialisé restauration. Et je tourne mes propres restos sur Uber&nbsp;Eats. Je sais ce qui déclenche la commande — pas juste ce qui fait joli.</p>
+      <p class="sub reveal delay1">Nous sommes graphistes spécialisés restauration. Et nous tournons nos propres restos sur Uber&nbsp;Eats. Nous savons ce qui déclenche la commande — pas juste ce qui fait joli.</p>
       <div class="hero-ctas reveal delay2"><a class="btn btn-primary" href="#devis">Demander un devis</a></div>
     </div>
     <div class="slot reveal delay3"><b>Ton visuel phare<br>(plat / marque)</b></div>
@@ -597,7 +601,7 @@
       <div class="srow star reveal">
         <span class="tag">Le service que les autres n'ont pas</span>
         <h3>Vitrine Uber Eats &amp; Deliveroo</h3>
-        <p>Je crée tes visuels <strong>et</strong> je les mets en ligne sur tes plateformes. La plupart des graphistes n'ont jamais géré de resto — moi si. Je sais exactement ce qui fait cliquer « commander ».</p>
+        <p>Nous créons tes visuels <strong>et</strong> nous les mettons en ligne sur tes plateformes. La plupart des graphistes n'ont jamais géré de resto — nous si. Nous savons exactement ce qui fait cliquer « commander ».</p>
       </div>
     </div>
   </section>
@@ -605,7 +609,7 @@
   <section class="trust">
     <div class="pad">
       <p class="eyebrow reveal">Confiance</p>
-      <h2 class="reveal delay1">Ils m'ont fait confiance.</h2>
+      <h2 class="reveal delay1">Ils nous ont fait confiance.</h2>
       <div class="quotes">
         <div class="quote reveal"><div class="stars">★★★★★</div><p>« Avis client à remplacer : une phrase courte et concrète sur le résultat obtenu. »</p><div class="who">— Nom, Resto</div></div>
         <div class="quote reveal delay1"><div class="stars">★★★★★</div><p>« Avis client à remplacer : ce qui a changé après le travail (commandes, image, temps gagné). »</p><div class="who">— Nom, Resto</div></div>
@@ -622,7 +626,7 @@
     <div class="pad">
       <p class="eyebrow reveal">Devis gratuit</p>
       <h2 class="reveal delay1">Un resto. Une image qui fait commander. On en parle ?</h2>
-      <p class="lede reveal delay2">Dis-moi ce dont tu as besoin, je te réponds avec un devis clair et sans engagement.</p>
+      <p class="lede reveal delay2">Dis-nous ce dont tu as besoin, nous te répondons avec un devis clair et sans engagement.</p>
       <div class="form reveal delay2">
         <div class="field"><label for="f-nom">Ton prénom</label><input id="f-nom" type="text" placeholder="Ex. Karim"></div>
         <div class="field"><label for="f-resto">Nom de ton resto</label><input id="f-resto" type="text" placeholder="Ex. Burger House"></div>
@@ -634,12 +638,12 @@
             <option>Vitrine Uber Eats / Deliveroo</option><option>Plusieurs / je ne sais pas encore</option>
           </select>
         </div>
-        <div class="field"><label for="f-msg">Un mot sur ton projet (optionnel)</label><textarea id="f-msg" placeholder="Parle-moi de ton resto, de tes plateformes…"></textarea></div>
+        <div class="field"><label for="f-msg">Un mot sur ton projet (optionnel)</label><textarea id="f-msg" placeholder="Parle-nous de ton resto, de tes plateformes…"></textarea></div>
         <div class="form-ctas">
           <button class="btn btn-primary" id="send-wa" type="button">Envoyer sur WhatsApp</button>
           <a class="btn btn-outline" id="send-mail" href="#">Envoyer par mail</a>
         </div>
-        <p class="form-note">Réponse rapide, en direct. Tu peux aussi m'écrire sur <a id="wa-inline" href="#">WhatsApp</a>.</p>
+        <p class="form-note">Réponse rapide, en direct. Tu peux aussi nous écrire sur <a id="wa-inline" href="#">WhatsApp</a>.</p>
       </div>
     </div>
   </section>
@@ -712,7 +716,7 @@
   var ig = document.createElement("a");
   ig.className = "fx-wa fx-ig"; ig.target = "_blank"; ig.rel = "noopener";
   ig.setAttribute("aria-label", "Voir Graph'Eat sur Instagram");
-  ig.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><span class="fx-wa-lbl">Suis-moi sur Instagram</span>';
+  ig.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><span class="fx-wa-lbl">Suis-nous sur Instagram</span>';
   document.body.appendChild(ig);
   document.addEventListener("DOMContentLoaded", function(){
     ig.href = (typeof INSTAGRAM !== "undefined") ? INSTAGRAM : "https://www.instagram.com/";
@@ -723,7 +727,7 @@
   var wa = document.createElement("a");
   wa.className = "fx-wa"; wa.target = "_blank"; wa.rel = "noopener";
   wa.setAttribute("aria-label", "Écrire à Graph'Eat sur WhatsApp");
-  wa.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.53 14.95L2 22l5.2-1.46A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.08.86.83-3-.2-.31a8.2 8.2 0 1 1 6.95 3.78Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.96-.14.17-.29.19-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.43.25-.4.72-1.34.08-.16.04-.31-.02-.43l-.76-1.83c-.2-.48-.4-.41-.56-.42h-.47a.9.9 0 0 0-.66.31 2.77 2.77 0 0 0-.86 2.06 4.8 4.8 0 0 0 1 2.55 11 11 0 0 0 4.2 3.7c1.56.68 2.18.73 2.96.62.48-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg><span class="fx-wa-lbl">Écris-moi sur WhatsApp</span>';
+  wa.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.53 14.95L2 22l5.2-1.46A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.08.86.83-3-.2-.31a8.2 8.2 0 1 1 6.95 3.78Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.96-.14.17-.29.19-.53.06a6.7 6.7 0 0 1-3.35-2.92c-.25-.43.25-.4.72-1.34.08-.16.04-.31-.02-.43l-.76-1.83c-.2-.48-.4-.41-.56-.42h-.47a.9.9 0 0 0-.66.31 2.77 2.77 0 0 0-.86 2.06 4.8 4.8 0 0 0 1 2.55 11 11 0 0 0 4.2 3.7c1.56.68 2.18.73 2.96.62.48-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg><span class="fx-wa-lbl">Écris-nous sur WhatsApp</span>';
   document.body.appendChild(wa);
   document.addEventListener("DOMContentLoaded", function(){
     wa.href = (typeof waHello !== "undefined") ? waHello : "https://wa.me/";
