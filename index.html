@@ -469,6 +469,10 @@
   .proof-lbl{font-size:clamp(14px,3.4vw,20px)}
   @media(min-width:720px){.proof-cell{padding:64px 24px}}
 
+  /* Chiffres : sans bordures */
+  main > section.proof{border:none!important}
+  .proof-cell{border:none!important}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
@@ -514,7 +518,7 @@
   <section class="proof" aria-label="Chiffres clés">
     <div class="proof-in">
       <div class="proof-cell reveal"><div class="proof-num" data-prefix="+" data-count="8" data-suffix=" ans">+8 ans</div><div class="proof-lbl">à créer pour la restauration</div></div>
-      <div class="proof-cell reveal"><div class="proof-num" data-prefix="+" data-count="200" data-suffix="">+200</div><div class="proof-lbl">projets livrés en France</div></div>
+      <div class="proof-cell reveal"><div class="proof-num" data-prefix="+" data-count="100" data-suffix="">+100</div><div class="proof-lbl">projets livrés en France</div></div>
     </div>
   </section>
 
