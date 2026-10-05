@@ -230,6 +230,21 @@
   .foot-brand{display:inline-block;transition:letter-spacing .4s var(--ease)}
   .foot-brand:hover{letter-spacing:.06em}
 
+  /* Avis + marques : deux bandes qui défilent en sens contraire */
+  .fx-marquee{display:block!important;width:100vw;margin-left:calc(50% - 50vw);overflow:hidden;border-top:none!important;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .fx-marquee .fx-track{display:flex;align-items:stretch;gap:16px;width:max-content;animation:fx-left var(--fx-dur,50s) linear infinite}
+  .fx-marquee.fx-rev .fx-track{align-items:center;animation-name:fx-right}
+  .fx-marquee:hover .fx-track,.fx-marquee:focus-within .fx-track{animation-play-state:paused}
+  @keyframes fx-left{to{transform:translateX(calc(-50% - 8px))}}
+  @keyframes fx-right{from{transform:translateX(calc(-50% - 8px))}to{transform:none}}
+  .quotes.fx-marquee{margin-top:32px}
+  .fx-marquee .quote{flex:none;width:min(82vw,400px);border:1px solid var(--line)!important;padding:28px!important;display:flex;flex-direction:column}
+  .fx-marquee .quote p{flex:1}
+  .brands.fx-marquee{margin-top:16px}
+  .fx-marquee .brand-chip{flex:none;white-space:nowrap;font-size:18px;padding:18px 32px}
+  .fx-marquee .brand-chip img{height:40px;width:auto;display:block}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
@@ -243,6 +258,9 @@
     .fx-media{clip-path:none;transform:none!important;opacity:1}
     .eyebrow::before{width:28px;margin-right:12px}
     .fx-cursor,.hero::before{display:none}
+    .fx-clone{display:none!important}
+    .fx-marquee{width:auto;margin-left:0;-webkit-mask-image:none;mask-image:none}
+    .fx-marquee .fx-track{flex-wrap:wrap;width:auto}
   }
 </style>
 </head>
@@ -400,6 +418,27 @@
       if (n.nodeType === 3 && n.textContent.trim()) { if (k++ % 2) { var em=document.createElement("em"); em.className="fx-ol"; n.parentNode.replaceChild(em,n); em.appendChild(n); } }
     });
   }
+
+
+  // Avis (vers la gauche) puis logos des marques (vers la droite) en défilement continu
+  function marquee(box, minItems, reverse, dur){
+    if (!box) return;
+    var items = Array.prototype.slice.call(box.children);
+    if (!items.length) return;
+    items.forEach(function(el){ el.classList.remove("reveal","delay1","delay2","delay3"); });
+    box.classList.add("fx-marquee","reveal"); if (reverse) box.classList.add("fx-rev");
+    box.style.setProperty("--fx-dur", dur + "s");
+    var track = document.createElement("div"); track.className = "fx-track";
+    var set = [];
+    for (var r = 0; set.length < minItems; r++) items.forEach(function(el){ set.push(r ? clone(el) : el); });
+    set.forEach(function(el){ track.appendChild(el); });
+    set.forEach(function(el){ track.appendChild(clone(el)); });
+    box.appendChild(track);
+  }
+  function clone(el){ var c = el.cloneNode(true); c.classList.add("fx-clone"); c.setAttribute("aria-hidden","true");
+    c.querySelectorAll("a,button").forEach(function(a){ a.setAttribute("tabindex","-1"); }); return c; }
+  marquee(document.querySelector(".trust .quotes"), 8, false, 55);
+  marquee(document.querySelector(".trust .brands"), 14, true, 35);
 
   if (reduce) return;
 
