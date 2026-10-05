@@ -475,9 +475,8 @@
 
   /* ===== Touches de rouge ===== */
   :root{--red:#ff2a2a}
-  .fx-crypt{color:var(--red)}
-  .fx-crypt::after{color:rgba(255,255,255,.6)}
-  .hero h1 u{background-image:linear-gradient(var(--red),var(--red))}
+  .fx-red{color:var(--red)}
+  .proof-num::first-letter{color:var(--red)}
   .fx-progress{background:var(--red)}
   .fx-dots button span::after{background:var(--red)}
   #prestations .fx-slides > .srow.star .tag,#prestations .fx-slides > .srow.star:has(> img) .tag{background:var(--red);color:#fff}
@@ -744,6 +743,19 @@
     slider.addEventListener("focusout", function(){ pause(false); });
     go(0, false); schedule();
   })();
+
+
+  // Mots en rouge (hors mots à effet TV) : [emplacement, texte exact]
+  [[".hero h1", "food"], [".argument h2", "avec ses yeux"], [".devis h2", "On en parle ?"], [".logo", "'"], [".foot-brand", "'"]].forEach(function(c){
+    var el = document.querySelector(c[0]); if (!el) return;
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n;
+    while ((n = walker.nextNode())) {
+      var at = n.textContent.indexOf(c[1]); if (at < 0) continue;
+      var part = n.splitText(at); part.splitText(c[1].length);
+      var span = document.createElement("span"); span.className = "fx-red";
+      part.parentNode.replaceChild(span, part); span.appendChild(part); break;
+    }
+  });
 
   if (reduce) return;
 
