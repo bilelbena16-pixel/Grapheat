@@ -324,6 +324,17 @@
   .fx-wa:focus-visible{outline:2px solid #fff;outline-offset:4px}
   @media(prefers-reduced-motion:reduce){.fx-wa{transform:none;opacity:1}}
 
+  /* Deux premières sections (hero + chiffres) : sans carte, pleine largeur */
+  main > section.hero,main > section.proof{margin:0;border:none!important;border-radius:0;box-shadow:none;background:none}
+  main > section.hero{overflow:hidden}
+  .proof-cell:first-child,.proof-cell:last-child{border-radius:0}
+  main > section.proof{border-top:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important}
+
+  /* Bouton WhatsApp en vert */
+  .fx-wa{background:#25d366;color:#fff;box-shadow:0 14px 34px -8px rgba(0,0,0,.95),0 0 0 1px rgba(37,211,102,.35)}
+  .fx-wa::before{border-color:#25d366}
+  @media(hover:hover){.fx-wa:hover{background:#1ebe5a}}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
