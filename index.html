@@ -473,6 +473,25 @@
   main > section.proof{border:none!important}
   .proof-cell{border:none!important}
 
+  /* ===== Touches de rouge ===== */
+  :root{--red:#ff2a2a}
+  .fx-crypt{color:var(--red)}
+  .fx-crypt::after{color:rgba(255,255,255,.6)}
+  .hero h1 u{background-image:linear-gradient(var(--red),var(--red))}
+  .fx-progress{background:var(--red)}
+  .fx-dots button span::after{background:var(--red)}
+  #prestations .fx-slides > .srow.star .tag,#prestations .fx-slides > .srow.star:has(> img) .tag{background:var(--red);color:#fff}
+  #prestations .fx-slides > .srow.star .tag::after{border-color:var(--red)}
+  .stars{color:var(--red)}
+
+  /* ===== Boutons : verre sombre, sans bordure, légère ombre portée ===== */
+  .btn,.btn-primary,.btn-outline{border:none!important;color:#fff!important;
+    background:linear-gradient(135deg,rgba(255,255,255,.17),rgba(255,255,255,.05))!important;
+    -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(255,255,255,.05),0 12px 28px -10px rgba(0,0,0,.9),0 4px 12px rgba(0,0,0,.35)}
+  .btn::before,.btn-primary::before,.btn-outline::before{background:var(--red)!important}
+  .btn:hover{color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 16px 32px -10px rgba(255,42,42,.45),0 4px 12px rgba(0,0,0,.4)}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
