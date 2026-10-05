@@ -339,6 +339,9 @@
   header.nav{top:0;margin:0;border:none!important;border-radius:0;box-shadow:none}
   header.nav.fx-hide{transform:translateY(-100%)}
 
+  /* Barre du bas : pleine largeur, sans bord */
+  footer{margin:0;border:none!important;border-radius:0;box-shadow:none;background:none;padding-bottom:calc(100px + env(safe-area-inset-bottom,0))}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
