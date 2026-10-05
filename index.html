@@ -296,6 +296,15 @@
   .form-note{margin-bottom:0}
   footer{padding:36px 0}
 
+  /* Prestations + Confiance : sans carte ; Réalisations : visuels bord à bord */
+  main > #prestations,main > section.trust{background:none;border:none!important;border-radius:0;box-shadow:none;overflow:visible;margin-inline:0}
+  main > #realisations{margin-inline:0}
+  .reals-stack{gap:0}
+  .reals-stack > *{border-radius:0;border:none!important;box-shadow:none}
+  .reals-stack > * + *{border-top:1px solid var(--line)!important}
+  .reals-stack > .fx-media{clip-path:inset(7% 5% 7% 5%)}
+  .reals-stack > .fx-media.in{clip-path:inset(0)}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
