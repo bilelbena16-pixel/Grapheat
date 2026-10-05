@@ -513,12 +513,6 @@
   @media(hover:hover){.fx-ig:hover{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%);filter:brightness(1.08)}}
   footer{padding-bottom:calc(170px + env(safe-area-inset-bottom,0))!important}
 
-  /* ===== Texture grunge (lettres usées) sur certains titres et mots ===== */
-  :root{--grunge:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='g' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' seed='7' result='a'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.01 .8' numOctaves='2' seed='3' result='b'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045' numOctaves='3' seed='11' result='c'/%3E%3CfeComposite in='a' in2='b' operator='arithmetic' k2='.5' k3='.4' result='ab'/%3E%3CfeComposite in='ab' in2='c' operator='arithmetic' k2='.75' k3='.45' result='m'/%3E%3CfeColorMatrix in='m' type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -9 0 0 0 5.6'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23g)'/%3E%3C/svg%3E")}
-  .hero h1,.argument h2,.trust h2,.proof-num,.mq-track span,.foot-brand,.fx-grunge{
-    -webkit-mask-image:var(--grunge);mask-image:var(--grunge);-webkit-mask-size:420px 420px;mask-size:420px 420px;
-    -webkit-mask-repeat:repeat;mask-repeat:repeat}
-
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
