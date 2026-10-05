@@ -527,6 +527,10 @@
   .fx-marquee::before{left:0;background:linear-gradient(90deg,#000,rgba(0,0,0,0))}
   .fx-marquee::after{right:0;background:linear-gradient(270deg,#000,rgba(0,0,0,0))}
 
+  /* Prestations : sans titre de section */
+  #prestations .serv-head{display:none}
+  #prestations .fx-slider{margin-top:38px}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
@@ -602,7 +606,6 @@
     <div class="pad">
       <div class="serv-head">
         <p class="eyebrow reveal">Prestations</p>
-        <h2 class="reveal delay1">Tout ce dont ton resto a besoin, côté image.</h2>
       </div>
       <div class="srow reveal"><h3>Identité de marque</h3><p>Logo, charte, univers. Une marque qu'on reconnaît avant même de lire le nom.</p></div>
       <div class="srow reveal"><h3>Cartes &amp; menus</h3><p>Menus plateformes, menu boards, print. Lisibles, appétissants, pensés pour la commande.</p></div>
