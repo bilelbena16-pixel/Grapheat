@@ -432,6 +432,24 @@
   @keyframes dot-fill{to{transform:scaleX(1)}}
   @media(prefers-reduced-motion:reduce){.fx-dots button.on span::after{animation:none;transform:scaleX(1)}}
 
+  /* Prestations : image de fond (mettre <img> en premier élément de chaque .srow) */
+  #prestations .fx-slides > .srow{position:relative;overflow:hidden}
+  #prestations .fx-slides > .srow > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+    transform:scale(1.06);transition:transform 3s var(--ease)}
+  #prestations .fx-slides > .srow > :not(img){position:relative;z-index:2}
+  #prestations .fx-slides > .srow::after{z-index:2}
+  #prestations .fx-slides > .srow:has(> img)::before{display:block;content:"";position:absolute;inset:0;left:0;width:auto;z-index:1;
+    top:0;right:0;bottom:0;height:auto;transform:none;animation:none;background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.45) 45%,rgba(0,0,0,.25) 100%)}
+  #prestations .fx-slides > .srow.fx-current > img{transform:none}
+  #prestations .fx-slides > .srow:has(> img){color:#fff}
+  #prestations .fx-slides > .srow:has(> img) p{color:rgba(255,255,255,.85)}
+  #prestations .fx-slides > .srow:has(> img)::after{-webkit-text-stroke-color:rgba(255,255,255,.6)}
+  #prestations .fx-slides > .srow.star:has(> img){color:#fff}
+  #prestations .fx-slides > .srow.star:has(> img) p{color:rgba(255,255,255,.85)}
+  #prestations .fx-slides > .srow.star:has(> img)::after{-webkit-text-stroke-color:rgba(255,255,255,.6)}
+  #prestations .fx-slides > .srow.star:has(> img) .tag{background:#fff;color:#000}
+  #prestations .fx-slides > .srow.star:has(> img) .tag::after{border-color:#fff}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
@@ -674,6 +692,7 @@
     function go(n, animate){
       track.style.transition = animate && !reduce ? "transform " + MOVE + "ms cubic-bezier(.75,0,.2,1)" : "none";
       track.style.transform = "translateX(" + (-n * 100) + "%)"; i = n; paint();
+      Array.prototype.forEach.call(track.children, function(c, j){ c.classList.toggle("fx-current", j === n); });
     }
     track.addEventListener("transitionend", function(){ if (i === rows.length) go(0, false); });
     function schedule(){ clearTimeout(timer); if (reduce || paused) return; timer = setTimeout(function(){ go(i + 1, true); schedule(); }, HOLD + MOVE); }
