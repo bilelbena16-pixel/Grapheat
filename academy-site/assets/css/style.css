@@ -265,7 +265,8 @@ textarea.input{min-height:110px;resize:vertical}
 .module .list{margin-top:14px;font-size:14px;gap:8px}
 .module .list li.eval{color:var(--mint-2)}
 .timeline{display:flex;flex-direction:column;gap:40px}
-.day-block .day-head{margin-bottom:18px}
+.day-block .day-head{margin-bottom:18px;justify-content:flex-start;gap:8px 18px}
+.day-block .day-head .meta{margin-left:auto}
 .day-block h3{font-size:clamp(22px,3vw,28px);margin:0}
 .modules{display:grid;gap:16px}
 .table{width:100%;border-collapse:collapse;font-size:15px}
@@ -364,3 +365,64 @@ textarea.input{min-height:110px;resize:vertical}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rise,.js .reveal{opacity:1;transform:none}
 }
+
+/* ==========================================================================
+   Thème clair (fond blanc) — activé par <html data-theme="light">
+   Le vert #4ADE80 reste la couleur des boutons ; pour le texte et les icônes
+   on utilise des verts plus foncés afin de garder un contraste AA sur blanc.
+   ========================================================================== */
+:root[data-theme="light"]{
+  --bg:#FFFFFF;
+  --title:#052E16;
+  --text:#2F4A3B;
+  --muted:#52695C;
+  --soft:#1F3A2B;
+  --mint:#15803D;
+  --mint-2:#166534;
+  --link:#15803D;
+  --link-hover:#166534;
+  --line:rgba(5,46,22,.12);
+  --ink:#15803D;
+}
+[data-theme="light"] body{background:#fff;color:var(--title)}
+[data-theme="light"] :focus-visible{outline-color:var(--ink)}
+[data-theme="light"] .glass{background:rgba(255,255,255,.72);border-color:rgba(5,46,22,.10);box-shadow:0 14px 40px rgba(5,46,22,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+[data-theme="light"] .glass.flat{box-shadow:none;background:rgba(240,253,244,.75)}
+[data-theme="light"] .glass-strong{background:rgba(255,255,255,.82);border-color:rgba(5,46,22,.12)}
+[data-theme="light"] .site-header{background:rgba(255,255,255,.86)}
+[data-theme="light"] .orb{opacity:.22;filter:blur(90px)}
+[data-theme="light"] .contact-box .orb{opacity:.18}
+[data-theme="light"] .hero-card{box-shadow:0 30px 70px rgba(5,46,22,.14)}
+[data-theme="light"] .shine{background-image:linear-gradient(100deg,#166534 0%,#16A34A 40%,#052E16 55%,#16A34A 70%)}
+[data-theme="light"] .lift:hover{border-color:rgba(22,163,74,.45)}
+[data-theme="light"] .btn-ghost{color:var(--title);border-color:rgba(5,46,22,.25)}
+[data-theme="light"] .btn-ghost:hover{color:var(--title);background:rgba(5,46,22,.05)}
+[data-theme="light"] .btn-main:hover{box-shadow:0 10px 30px rgba(22,163,74,.35)}
+[data-theme="light"] .nav-toggle{border-color:rgba(5,46,22,.2);background:rgba(5,46,22,.04)}
+[data-theme="light"] .nav a:not(.btn):hover,[data-theme="light"] .nav a[aria-current="page"]{color:var(--ink)}
+@media (max-width:1100px){[data-theme="light"] .nav a:not(.btn):hover{background:rgba(5,46,22,.05)}}
+[data-theme="light"] .pill{border-color:rgba(5,46,22,.2)}
+[data-theme="light"] .pill-new{border-color:var(--accent)}
+[data-theme="light"] .course-featured{background:rgba(220,252,231,.75);border-color:rgba(22,163,74,.45)}
+[data-theme="light"] .day-num,[data-theme="light"] .figure strong,[data-theme="light"] .rating strong,
+[data-theme="light"] .module-code,[data-theme="light"] .stars,[data-theme="light"] .step-num,
+[data-theme="light"] .pillar .ico,[data-theme="light"] .marquee .sep{color:var(--ink)}
+[data-theme="light"] .step-num,[data-theme="light"] .pillar .ico,[data-theme="light"] .faq summary::after{background:rgba(74,222,128,.22)}
+[data-theme="light"] .faq summary::after{color:var(--ink)}
+[data-theme="light"] .list li::before,[data-theme="light"] .doc ul li::before{background:#16A34A}
+[data-theme="light"] svg[stroke="#4ADE80"]{stroke:#16A34A}
+[data-theme="light"] .input{background-color:#fff;border-color:rgba(5,46,22,.22);color:var(--title)}
+[data-theme="light"] .input::placeholder{color:#6B8577}
+[data-theme="light"] .input:focus{border-color:#16A34A;box-shadow:0 0 0 3px rgba(22,163,74,.2)}
+[data-theme="light"] .input[aria-invalid="true"]{border-color:#DC2626}
+[data-theme="light"] select.input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2315803D' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")}
+[data-theme="light"] select.input option{background:#fff;color:var(--title)}
+[data-theme="light"] .consent input{accent-color:#16A34A}
+[data-theme="light"] .error{color:#B91C1C}
+[data-theme="light"] .form-status:not(:empty){background:rgba(74,222,128,.14);border-color:rgba(22,163,74,.35);color:var(--soft)}
+[data-theme="light"] .form-status.is-error{background:rgba(220,38,38,.06);border-color:rgba(220,38,38,.35)}
+[data-theme="light"] .todo{color:#92400E}
+[data-theme="light"] .logo-plate{box-shadow:0 0 0 1px rgba(5,46,22,.1)}
+[data-theme="light"] .avatar{color:#fff}
+[data-theme="light"] .breadcrumb li+li::before{color:rgba(5,46,22,.3)}
+[data-theme="light"] .wa-float{box-shadow:0 12px 30px rgba(5,46,22,.25)}

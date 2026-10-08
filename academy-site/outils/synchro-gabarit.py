@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Synchronise l'en-tête, le pied de page et le bouton WhatsApp sur toutes les pages.
 
-Usage (depuis le dossier academy-site) :  python3 outils/synchro-gabarit.py
+Usage (depuis le dossier academy-site) :  python3 outils/synchro-gabarit.py [sombre|clair]
 
 Modifier le menu ou le pied de page ICI, puis relancer le script : chaque page .html
 est réécrite entre <header class="site-header ...> … </header>, entre
@@ -9,6 +9,14 @@ est réécrite entre <header class="site-header ...> … </header>, entre
 """
 import pathlib
 import re
+import sys
+
+# Thème du site : "sombre" (fond vert foncé, par défaut) ou "clair" (fond blanc).
+# On peut aussi le passer en argument : python3 outils/synchro-gabarit.py clair
+THEME = "sombre"
+if len(sys.argv) > 1:
+    THEME = sys.argv[1]
+assert THEME in ("sombre", "clair"), "Thème attendu : sombre ou clair"
 
 RACINE = pathlib.Path(__file__).resolve().parent.parent
 
@@ -102,5 +110,7 @@ for f in sorted(RACINE.rglob("*.html")):
     s = re.sub(r'<footer class="site-footer">.*?</footer>', lambda m: footer(p, rel), s, count=1, flags=re.S)
     s = re.sub(r'\n<a class="wa-float"[^\n]*', '', s)
     s = s.replace('</footer>\n', '</footer>\n' + WA + '\n', 1)
+    s = re.sub(r'<html lang="fr"[^>]*>', '<html lang="fr" data-theme="light">' if THEME == "clair" else '<html lang="fr">', s, count=1)
+    s = re.sub(r'<meta name="theme-color" content="[^"]*">', '<meta name="theme-color" content="%s">' % ("#FFFFFF" if THEME == "clair" else "#06140D"), s, count=1)
     f.write_text(s, encoding="utf-8")
     print("ok", rel)

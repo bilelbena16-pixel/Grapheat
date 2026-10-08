@@ -67,6 +67,12 @@ Maquette de référence : `index.html` d'origine (désormais intégrée et déco
 - `assets/docs/` : PDF des programmes + certificat Qualiopi · `assets/img/` : logos, favicons, image Open Graph
 - `outils/synchro-gabarit.py` : **en-tête, menu, pied de page et bouton WhatsApp sont définis dans ce script**. Pour les modifier : éditer le script puis lancer `python3 outils/synchro-gabarit.py` (met à jour toutes les pages)
 
+## Thème sombre / thème clair (fond blanc)
+Le site existe en deux versions avec le même contenu :
+- **sombre** (par défaut, charte ci-dessus) ;
+- **clair** : fond blanc, mêmes boutons #4ADE80, textes et icônes en verts foncés (#052E16, #15803D, #16A34A) pour garder les contrastes AA.
+Pour basculer toutes les pages : `python3 outils/synchro-gabarit.py clair` (ou `sombre`). Le thème clair est défini en fin de `assets/css/style.css` (`:root[data-theme="light"]`).
+
 ## Formulaire de contact
 Sans `data-endpoint`, l'envoi ouvre la messagerie du visiteur avec un e-mail pré-rempli adressé à `data-mailto`.
 Avec un `data-endpoint` (ex. `https://formspree.io/f/xxxx`), la demande est envoyée en POST JSON et un message de confirmation s'affiche sur la page.
