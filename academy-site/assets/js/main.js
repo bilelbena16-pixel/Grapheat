@@ -124,6 +124,7 @@
       email: form.elements.email.value.trim(),
       telephone: form.elements.telephone.value.trim(),
       formation: form.elements.formation.options[form.elements.formation.selectedIndex].text,
+      statut: form.elements.statut ? form.elements.statut.value : '',
       message: form.elements.message.value.trim()
     };
 
@@ -156,6 +157,7 @@
       'E-mail : ' + data.email,
       'Téléphone : ' + data.telephone,
       'Formation souhaitée : ' + data.formation,
+      data.statut ? 'Situation : ' + data.statut : '',
       data.message ? '\nMessage :\n' + data.message : ''
     ].join('\n');
     var subject = 'Demande d’information – ' + data.formation;
