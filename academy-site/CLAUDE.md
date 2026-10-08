@@ -69,8 +69,8 @@ Maquette de référence : `index.html` d'origine (désormais intégrée et déco
 
 ## Thème sombre / thème clair (fond blanc)
 Le site existe en deux versions avec le même contenu :
-- **sombre** (par défaut, charte ci-dessus) ;
-- **clair** : fond blanc, mêmes boutons #4ADE80, textes et icônes en verts foncés (#052E16, #15803D, #16A34A) pour garder les contrastes AA.
+- **clair** (**par défaut**, choisi le 08/10/2026) : fond blanc, mêmes boutons #4ADE80, textes et icônes en verts foncés (#052E16, #15803D, #16A34A) pour garder les contrastes AA ;
+- **sombre** : fond vert foncé #06140D (charte d'origine de la maquette).
 Pour basculer toutes les pages : `python3 outils/synchro-gabarit.py clair` (ou `sombre`). Le thème clair est défini en fin de `assets/css/style.css` (`:root[data-theme="light"]`).
 
 ## Formulaire de contact

@@ -11,9 +11,9 @@ import pathlib
 import re
 import sys
 
-# Thème du site : "sombre" (fond vert foncé, par défaut) ou "clair" (fond blanc).
+# Thème du site : "clair" (fond blanc, par défaut) ou "sombre" (fond vert foncé).
 # On peut aussi le passer en argument : python3 outils/synchro-gabarit.py clair
-THEME = "sombre"
+THEME = "clair"
 if len(sys.argv) > 1:
     THEME = sys.argv[1]
 assert THEME in ("sombre", "clair"), "Thème attendu : sombre ou clair"

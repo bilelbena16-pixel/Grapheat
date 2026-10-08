@@ -19,4 +19,4 @@ Voir `CLAUDE.md` pour la charte, la structure et les points à vérifier.
 Ils sont communs à toutes les pages : éditer `outils/synchro-gabarit.py` puis lancer `python3 outils/synchro-gabarit.py`.
 
 ## Version fond blanc
-`python3 outils/synchro-gabarit.py clair` passe tout le site en fond blanc ; `python3 outils/synchro-gabarit.py sombre` revient au fond vert foncé.
+Le site est en fond blanc par défaut. `python3 outils/synchro-gabarit.py sombre` le passe en fond vert foncé ; `python3 outils/synchro-gabarit.py clair` revient au fond blanc.
