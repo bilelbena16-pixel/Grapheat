@@ -100,6 +100,8 @@ def footer(p, page):
 </footer>'''
 
 
+EXTRA_ORBS = ''.join('<div class="orb o%d orb-%s orb-x" aria-hidden="true"></div>\n' % (n, k) for n, k in ((3, 'f'), (1, 'g'), (2, 'h'), (3, 'i')))
+
 WA = '<a class="wa-float" href="https://wa.me/33758635791" rel="noopener" aria-label="Nous écrire sur WhatsApp">' + WA_ICON + '</a>'
 
 for f in sorted(RACINE.rglob("*.html")):
@@ -110,6 +112,9 @@ for f in sorted(RACINE.rglob("*.html")):
     s = re.sub(r'<footer class="site-footer">.*?</footer>', lambda m: footer(p, rel), s, count=1, flags=re.S)
     s = re.sub(r'\n<a class="wa-float"[^\n]*', '', s)
     s = s.replace('</footer>\n', '</footer>\n' + WA + '\n', 1)
+    # Halos supplémentaires (affichés seulement en thème clair, pour l'effet verre)
+    s = re.sub(r'\n<div class="orb o\d orb-[fghi] orb-x"[^\n]*', '', s)
+    s = s.replace('<div class="orb o2 orb-e" aria-hidden="true"></div>\n', '<div class="orb o2 orb-e" aria-hidden="true"></div>\n' + EXTRA_ORBS, 1)
     s = re.sub(r'<html lang="fr"[^>]*>', '<html lang="fr" data-theme="light">' if THEME == "clair" else '<html lang="fr">', s, count=1)
     # Le thème est aussi posé par script : certains hébergeurs/aperçus réécrivent la balise <html>.
     js = "document.documentElement.classList.add('js')" + (";document.documentElement.setAttribute('data-theme','light')" if THEME == "clair" else "")
