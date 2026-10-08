@@ -111,6 +111,9 @@ for f in sorted(RACINE.rglob("*.html")):
     s = re.sub(r'\n<a class="wa-float"[^\n]*', '', s)
     s = s.replace('</footer>\n', '</footer>\n' + WA + '\n', 1)
     s = re.sub(r'<html lang="fr"[^>]*>', '<html lang="fr" data-theme="light">' if THEME == "clair" else '<html lang="fr">', s, count=1)
+    # Le thème est aussi posé par script : certains hébergeurs/aperçus réécrivent la balise <html>.
+    js = "document.documentElement.classList.add('js')" + (";document.documentElement.setAttribute('data-theme','light')" if THEME == "clair" else "")
+    s = re.sub(r'<script>document\.documentElement\.classList\.add\(\'js\'\)[^<]*</script>', lambda m: '<script>' + js + '</script>', s, count=1)
     s = re.sub(r'<meta name="theme-color" content="[^"]*">', '<meta name="theme-color" content="%s">' % ("#FFFFFF" if THEME == "clair" else "#06140D"), s, count=1)
     f.write_text(s, encoding="utf-8")
     print("ok", rel)
