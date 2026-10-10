@@ -608,6 +608,9 @@
   .slot.has-img img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 45%;
     border-radius:0;box-shadow:none}
 
+  /* Cadre avec image : exactement la même taille que les cadres vides */
+  .slot.has-img{height:auto;min-height:clamp(300px,56vw,520px);padding:24px}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
