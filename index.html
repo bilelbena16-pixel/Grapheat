@@ -670,6 +670,13 @@
   .fx-rail{top:clamp(80px,10vh,100px);bottom:clamp(28px,6vh,60px);left:clamp(14px,2.6vw,40px)}
   @media(max-width:600px){.fx-rail{left:10px}}
 
+  /* Image du hero : fondu vers le fond en bas (pas de trait net) */
+  .hero > img.hero-visual.hero-top{
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 50%,rgba(0,0,0,.6) 72%,transparent 100%);
+            mask-image:linear-gradient(to bottom,#000 0%,#000 50%,rgba(0,0,0,.6) 72%,transparent 100%);
+    margin-bottom:calc(-1 * clamp(16px,2vw,28px));position:relative;z-index:0}
+  .hero > img.hero-visual.hero-top + .pad{position:relative;z-index:1}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
