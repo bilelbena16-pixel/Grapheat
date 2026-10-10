@@ -666,6 +666,9 @@
   .fx-rail-logo{width:clamp(22px,2.2vw,32px);margin-left:calc(clamp(22px,2.2vw,32px) / -2);opacity:.55;filter:drop-shadow(0 1px 3px rgba(0,0,0,.8))}
   @media(max-width:600px){.fx-rail-logo{width:16px;margin-left:-8px}}
 
+  /* Ligne de progression : espace en haut et en bas */
+  .fx-rail{top:clamp(90px,14vh,140px);bottom:clamp(40px,10vh,100px)}
+
   /* Curseur à inversion (souris uniquement) */
   .fx-cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;
     pointer-events:none;z-index:99;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),opacity .25s}
