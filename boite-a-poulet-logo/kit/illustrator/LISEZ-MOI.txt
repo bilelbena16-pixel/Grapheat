@@ -1,0 +1,15 @@
+LA BOÎTE À POULET — fichiers pour Adobe Illustrator
+
+Le logo est DÉJÀ vectorisé : texte converti en tracés, aucune police à installer.
+N'utilisez pas la « Vectorisation de l'image » (Image Trace) sur les PNG : ouvrez directement ces fichiers.
+
+- boite-a-poulet-MASTER.pdf   Toutes les versions sur un seul plan de travail, chacune dans un groupe nommé
+                               (Fichier > Ouvrir, puis Enregistrer sous… > Adobe Illustrator .ai)
+- pdf/                         Une version par fichier (PDF vectoriel — à privilégier)
+- eps/                         Les mêmes en EPS (anciens logiciels, enseignistes, brodeurs)
+- ../logo/*.svg                Les mêmes en SVG (web, et s'ouvrent aussi dans Illustrator)
+- boite-a-poulet-couleurs.ase  Nuancier : Fenêtre > Nuancier > menu ☰ > Ouvrir une bibliothèque de nuances > Autre bibliothèque…
+
+Impression : passer le document en CMJN (Fichier > Mode colorimétrique du document > CMJN)
+puis appliquer les nuances CMJN du nuancier. Rouge ≈ Pantone 485 C, noir ≈ Black 6 C — à valider avec l'imprimeur.
+Police du logo : Craze (Pian45 Studio) — licence commerciale à acheter avant usage public.
