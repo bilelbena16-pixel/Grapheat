@@ -263,6 +263,13 @@ body.pushed .tabview{opacity:0;transform:translateX(-12%)}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 @media (min-width:700px){.large h1{font-size:52px}}
+/* Titre du tableau de bord : une ligne, couleur du logo, reflet brillant */
+#home .large h1{white-space:nowrap;font-size:clamp(22px,8.3vw,52px);font-variation-settings:"wdth" 108;letter-spacing:0;
+  background:linear-gradient(110deg,#1A8CB6 0%,#1A8CB6 38%,#B9ECFF 48%,#FFFFFF 50%,#B9ECFF 52%,#1A8CB6 62%,#1A8CB6 100%);
+  background-size:250% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  animation:shine 4.5s cubic-bezier(.4,0,.2,1) infinite;filter:drop-shadow(0 1px 0 rgba(26,140,182,.15))}
+@keyframes shine{0%{background-position:100% 0}55%,100%{background-position:0% 0}}
+@media (prefers-reduced-motion: reduce){#home .large h1{animation:none;background-position:50% 0}}
 </style>
 
 <div id="splash" role="img" aria-label="BookingAlger">
