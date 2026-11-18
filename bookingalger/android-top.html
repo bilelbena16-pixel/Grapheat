@@ -53,6 +53,10 @@ body.pushed .tabview{opacity:0;transform:translateX(-12%)}
 /* Top app bar */
 .nav{position:sticky;top:0;z-index:4;padding-top:env(safe-area-inset-top,0px);background:var(--surface);transition:background .25s}
 .nav.solid{background:var(--s-c)}
+/* Accueil et Wi-Fi : pas de barre vide en haut, elle n'apparaît qu'au défilement */
+#homeNav,#wifiNav{position:fixed;left:0;right:0;transform:translateY(-110%);transition:transform .3s var(--emph),background .25s;box-shadow:0 1px 0 var(--s-highest)}
+#homeNav.solid,#wifiNav.solid{transform:none}
+.tabview .wrap{padding-top:calc(14px + env(safe-area-inset-top,0px))}
 .nav-in{max-width:760px;margin:0 auto;height:64px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px;padding-left:max(4px,env(safe-area-inset-left,0px));padding-right:max(4px,env(safe-area-inset-right,0px))}
 .nav-title{font-size:20px;font-weight:700;font-variation-settings:"wdth" 115;opacity:0;transition:opacity .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-left:12px}
 .nav.solid .nav-title,#detNav .nav-title{opacity:1}
@@ -63,7 +67,7 @@ body.pushed .tabview{opacity:0;transform:translateX(-12%)}
 
 /* Large title */
 .large{padding-block:4px 16px}
-.brandline img{height:46px;width:auto;max-width:100%;display:block;margin:4px 0 18px}
+.brandline img{height:46px;width:auto;max-width:100%;display:block;margin:0 0 16px}
 .large h1{font-size:38px;line-height:1;font-weight:800;font-variation-settings:"wdth" 125;text-transform:uppercase;letter-spacing:-.005em;margin:0;text-wrap:balance}
 .sub{color:var(--on-var);font-size:15px;margin:10px 0 0;font-weight:500}
 
