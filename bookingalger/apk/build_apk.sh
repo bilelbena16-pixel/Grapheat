@@ -3,7 +3,7 @@
 set -euo pipefail
 KEY=$1; NAME=$2; SDK=$3; KS=$4
 BT=$SDK/android-15; JAR=$SDK/android-35/android.jar
-HERE=$(cd "$(dirname "$0")" && pwd); SRC=$HERE/../$KEY
+HERE=$(cd "$(dirname "$0")" && pwd); SRC=$HERE/../$KEY; [ "$KEY" = appartements ] && SRC=$HERE/..
 W=$(mktemp -d); PKG=com.bookingalger.$KEY
 mkdir -p $W/assets $W/res $W/src/com/bookingalger/$KEY $W/classes $W/dex
 cp $SRC/index.html $W/assets/index.html; cp -r $SRC/img $W/assets/img
