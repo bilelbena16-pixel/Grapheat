@@ -20,4 +20,6 @@ head = """<!doctype html>
 <body>
 """
 (d / "index.html").write_text(head + body + "\n</body>\n</html>\n", encoding="utf-8")
+android = (d / "app-android.html").read_text(encoding="utf-8")
+(d / "android.html").write_text(head.replace('content="#F1F4F6"', 'content="#FFFFFF"') + android + "\n</body>\n</html>\n", encoding="utf-8")
 print("index.html OK")
