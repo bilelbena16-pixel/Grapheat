@@ -1,29 +1,32 @@
 <title>BookingAlger Tâches</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
-/* Layout: iOS-style stack — splash, then a grouped list of apartments; tapping one pushes a detail screen. */
+/* Layout: iOS-style tab app — splash, then a 2-column photo grid of apartments (tab 1) and the Wi-Fi boxes (tab 2); an apartment pushes a detail screen. */
 :root{
-  --bg:#F1F4F6; --surface:#FFFFFF; --surface-2:#F7F9FA; --fg:#0E1B23; --fg-2:#566570; --fg-3:#8A96A0;
-  --sep:rgba(14,27,35,.11); --fill:rgba(110,124,136,.13); --scrim:rgba(8,16,22,.38);
-  --brand:#0F78A3; --on-brand:#FFFFFF; --brand-soft:#E2F0F6;
-  --ok:#22693A; --ok-soft:#E3F1E7; --danger:#C2342B; --danger-soft:#FBE8E6; --warn:#9A5B00; --warn-soft:#FBF0DD;
-  --nav:rgba(241,244,246,.82); --shadow:0 1px 2px rgba(14,27,35,.06),0 6px 24px rgba(14,27,35,.06);
+  --bg:#F2F4F6; --surface:#FFFFFF; --surface-2:#F6F8F9; --fg:#0E1B23; --fg-2:#566570; --fg-3:#8A96A0;
+  --sep:rgba(14,27,35,.1); --fill:rgba(110,124,136,.13); --scrim:rgba(8,16,22,.4);
+  --brand:#0F78A3; --on-brand:#FFFFFF; --brand-soft:#E2F0F6; --green:#22693A;
+  --ok:#22693A; --ok-soft:#E3F1E7; --danger:#C2342B; --danger-soft:#FBE8E6; --warn:#9A5B00;
+  --hero-a:#0D6F98; --hero-b:#1D6B3B;
+  --bar:rgba(248,250,251,.84); --shadow:0 1px 2px rgba(14,27,35,.05),0 8px 28px rgba(14,27,35,.07);
   --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,sans-serif;
-  --r-lg:14px; --r-md:12px; --ease:cubic-bezier(.32,.72,0,1); --t-push:420ms;
+  --r-xl:22px; --r-lg:16px; --r-md:12px; --ease:cubic-bezier(.32,.72,0,1); --t-push:440ms;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#000000; --surface:#15191C; --surface-2:#1C2125; --fg:#F1F5F7; --fg-2:#A1ADB5; --fg-3:#6F7C85;
+  --bg:#000000; --surface:#16191C; --surface-2:#1E2226; --fg:#F1F5F7; --fg-2:#A1ADB5; --fg-3:#6F7C85;
   --sep:rgba(255,255,255,.1); --fill:rgba(130,142,152,.22); --scrim:rgba(0,0,0,.6);
-  --brand:#52B6DF; --on-brand:#03202C; --brand-soft:rgba(82,182,223,.16);
-  --ok:#62C784; --ok-soft:rgba(98,199,132,.15); --danger:#FF6F62; --danger-soft:rgba(255,111,98,.16); --warn:#F2B04C; --warn-soft:rgba(242,176,76,.15);
-  --nav:rgba(0,0,0,.78); --shadow:none; color-scheme:dark}}
+  --brand:#52B6DF; --on-brand:#03202C; --brand-soft:rgba(82,182,223,.16); --green:#62C784;
+  --ok:#62C784; --ok-soft:rgba(98,199,132,.15); --danger:#FF6F62; --danger-soft:rgba(255,111,98,.16); --warn:#F2B04C;
+  --hero-a:#0B5677; --hero-b:#17512D;
+  --bar:rgba(18,20,22,.82); --shadow:none; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#000000; --surface:#15191C; --surface-2:#1C2125; --fg:#F1F5F7; --fg-2:#A1ADB5; --fg-3:#6F7C85;
+  --bg:#000000; --surface:#16191C; --surface-2:#1E2226; --fg:#F1F5F7; --fg-2:#A1ADB5; --fg-3:#6F7C85;
   --sep:rgba(255,255,255,.1); --fill:rgba(130,142,152,.22); --scrim:rgba(0,0,0,.6);
-  --brand:#52B6DF; --on-brand:#03202C; --brand-soft:rgba(82,182,223,.16);
-  --ok:#62C784; --ok-soft:rgba(98,199,132,.15); --danger:#FF6F62; --danger-soft:rgba(255,111,98,.16); --warn:#F2B04C; --warn-soft:rgba(242,176,76,.15);
-  --nav:rgba(0,0,0,.78); --shadow:none; color-scheme:dark}
+  --brand:#52B6DF; --on-brand:#03202C; --brand-soft:rgba(82,182,223,.16); --green:#62C784;
+  --ok:#62C784; --ok-soft:rgba(98,199,132,.15); --danger:#FF6F62; --danger-soft:rgba(255,111,98,.16); --warn:#F2B04C;
+  --hero-a:#0B5677; --hero-b:#17512D;
+  --bar:rgba(18,20,22,.82); --shadow:none; color-scheme:dark}
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -31,7 +34,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 var(--font);-we
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none;padding:0}
 a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:8px}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:10px}
 .ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -46,112 +49,164 @@ a{color:inherit;text-decoration:none}
 
 /* Views */
 .view{position:fixed;inset:0;overflow-y:auto;overscroll-behavior:contain;background:var(--bg);-webkit-overflow-scrolling:touch}
-#detail{transform:translateX(100%);transition:transform var(--t-push) var(--ease);z-index:5;box-shadow:-12px 0 40px rgba(0,0,0,.08);visibility:hidden}
+.tabview{transition:transform var(--t-push) var(--ease),filter var(--t-push)}
+body.pushed .tabview{transform:translateX(-26%);filter:brightness(.9)}
+#detail{transform:translateX(100%);transition:transform var(--t-push) var(--ease);z-index:30;box-shadow:-12px 0 40px rgba(0,0,0,.12);visibility:hidden}
 #detail.open{transform:none;visibility:visible}
-#home{transition:transform var(--t-push) var(--ease),filter var(--t-push)}
-body.pushed #home{transform:translateX(-28%);filter:brightness(.92)}
-.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:calc(48px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 
 /* Nav bar */
-.nav{position:sticky;top:0;z-index:4;padding-top:env(safe-area-inset-top,0px);background:transparent;transition:background .2s,box-shadow .2s}
-.nav.solid{background:var(--nav);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 .5px 0 var(--sep)}
-.nav-in{max-width:720px;margin:0 auto;height:48px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
-.nav-title{font-weight:600;font-size:17px;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:56vw}
+.nav{position:sticky;top:0;z-index:4;padding-top:env(safe-area-inset-top,0px);transition:background .25s,box-shadow .25s}
+.nav.solid{background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 .5px 0 var(--sep)}
+.nav-in{max-width:760px;margin:0 auto;height:50px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+.nav-title{font-weight:600;font-size:17px;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:38vw}
 .nav.solid .nav-title{opacity:1;transform:none}
-.nav-l{justify-self:start}.nav-r{justify-self:end;display:flex;gap:4px}
-.nbtn{min-width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;gap:2px;color:var(--brand);border-radius:22px;font-size:17px;transition:opacity .15s}
+.nav-l{justify-self:start}.nav-r{justify-self:end;display:flex;gap:6px}
+.nbtn{min-width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;gap:2px;color:var(--brand);border-radius:22px;font-size:17px;transition:opacity .15s,background .25s,color .25s}
 .nbtn:active{opacity:.45}
-.nbtn .ic{width:24px;height:24px}
-.nbtn.back{padding-right:8px}.nbtn.back .ic{width:26px;height:26px;stroke-width:2.4}
+.nbtn .ic{width:22px;height:22px}
 .round{width:36px;min-width:36px;height:36px;margin:4px;background:var(--fill)}
 .round .ic{width:20px;height:20px}
+.back{padding:0 12px 0 6px}.back .ic{width:24px;height:24px;stroke-width:2.4}
+/* Detail nav over the photo banner */
+#detNav:not(.solid) .nbtn{color:#fff;background:rgba(0,0,0,.28);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+#detNav:not(.solid) .back{margin-left:4px;height:36px}
 
 /* Large title */
-.large{padding-block:2px 12px}
-.brandline{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.brandline img{height:22px;width:auto}
-.large h1{font:700 34px/1.12 var(--font-display);letter-spacing:-.022em;margin:0;text-wrap:balance}
-.sub{color:var(--fg-2);font-size:15px;margin:6px 0 0}
+.large{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding-block:0 12px}
+.brandline img{height:24px;width:auto;display:block;margin-bottom:8px}
+.large h1{font:800 34px/1.1 var(--font-display);letter-spacing:-.025em;margin:0;text-wrap:balance}
+.sub{color:var(--fg-2);font-size:15px;margin:5px 0 0}
 
-/* Search + segmented */
-.search{display:flex;align-items:center;gap:6px;height:38px;border-radius:10px;background:var(--fill);padding:0 10px;color:var(--fg-3);margin-top:14px}
+/* Summary hero */
+.summary{position:relative;overflow:hidden;border-radius:var(--r-xl);padding:14px 16px 14px;color:#fff;background:linear-gradient(135deg,var(--hero-a) 0%,#12698A 52%,var(--hero-b) 100%);box-shadow:0 10px 30px rgba(13,111,152,.22)}
+.summary::before,.summary::after{content:"";position:absolute;border:2px solid rgba(255,255,255,.16);border-radius:16px;width:120px;height:150px;transform:skewY(-8deg)}
+.summary::before{right:-18px;top:-30px}
+.summary::after{right:24px;top:6px;border-color:rgba(255,255,255,.1)}
+.sum-k{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
+.sum-n{font:800 34px/1.05 var(--font-display);letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+.sum-n small{font-size:18px;font-weight:600;letter-spacing:-.01em;margin-left:6px}
+.sum-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;position:relative}
+.sum-chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:15px;background:rgba(255,255,255,.17);font-size:13px;font-weight:600;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.sum-chip .ic{width:15px;height:15px;stroke-width:2.4}
+.sum-chip.red{background:#fff;color:#B42C24}
+
+/* Search + filter chips */
+.search{display:flex;align-items:center;gap:6px;height:40px;border-radius:12px;background:var(--fill);padding:0 12px;color:var(--fg-3);margin-top:16px}
 .search input{flex:1;min-width:0;border:0;background:none;outline:none;color:var(--fg);font-size:17px;height:100%}
 .search input::placeholder{color:var(--fg-3)}
 .search .ic{width:18px;height:18px}
-.seg{display:grid;grid-template-columns:repeat(4,1fr);background:var(--fill);border-radius:10px;padding:2px;margin-top:12px;position:relative}
-.seg button{position:relative;z-index:1;min-height:36px;border-radius:8px;font-size:13px;font-weight:500;color:var(--fg);display:flex;align-items:center;justify-content:center;gap:5px;padding:0 4px;transition:color .2s}
-.seg button[aria-pressed="true"]{font-weight:600}
-.seg .pill{position:absolute;top:2px;bottom:2px;left:2px;width:calc((100% - 4px)/4);background:var(--surface);border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04);transition:transform .32s var(--ease)}
-.seg .n{font-variant-numeric:tabular-nums;color:var(--fg-2);font-weight:500}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:14px calc(-1 * max(16px,env(safe-area-inset-left,0px))) 0;padding:2px max(16px,env(safe-area-inset-left,0px))}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;height:36px;padding:0 14px;border-radius:18px;background:var(--surface);color:var(--fg);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;box-shadow:inset 0 0 0 1px var(--sep);transition:background .2s,color .2s}
+.chip .n{color:var(--fg-3);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);box-shadow:none}
+.chip[aria-pressed="true"] .n{color:inherit;opacity:.7}
 
-/* Grouped list */
-.sec-h{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:var(--fg-2);margin:26px 16px 7px}
+/* Apartment grid */
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;letter-spacing:.03em;text-transform:uppercase;color:var(--fg-2);margin:24px 4px 10px;font-weight:500}
 .sec-h button{color:var(--brand);text-transform:none;letter-spacing:0;font-size:15px;min-height:44px;margin:-14px 0}
-.group{background:var(--surface);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
-.row{display:flex;align-items:center;gap:12px;min-height:76px;padding:10px 12px 10px 12px;position:relative;transition:background .15s}
-.row:active{background:var(--surface-2)}
-.row+.row::before{content:"";position:absolute;top:0;left:84px;right:0;height:.5px;background:var(--sep)}
-.thumb{width:58px;height:58px;border-radius:12px;object-fit:cover;flex:none;background:var(--fill)}
-.row-body{flex:1;min-width:0}
-.row-t{font-weight:600;font-size:17px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row-s{color:var(--fg-2);font-size:14px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.type{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--brand);background:var(--brand-soft);padding:2px 6px;border-radius:5px;margin-right:6px;vertical-align:1px}
-.chev{color:var(--fg-3);width:18px;height:18px}
-.badge{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 9px;border-radius:13px;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
-.badge .ic{width:14px;height:14px;stroke-width:2.4}
-.b-todo{background:var(--fill);color:var(--fg)}
-.b-urgent{background:var(--danger-soft);color:var(--danger)}
-.b-ok{background:var(--ok-soft);color:var(--ok)}
-.empty{padding:28px 20px;text-align:center;color:var(--fg-2);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:640px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
+.card{position:relative;aspect-ratio:1/1;max-width:100%;border-radius:var(--r-xl);overflow:hidden;display:block;background:var(--fill);box-shadow:var(--shadow);transition:transform .2s var(--ease);isolation:isolate}
+.card:active{transform:scale(.965)}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .5s var(--ease)}
+.card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.18) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 45%,rgba(0,0,0,.72) 100%)}
+.card-top{position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.glass{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 9px;border-radius:13px;font-size:12px;font-weight:700;color:#fff;background:rgba(20,26,30,.36);-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%);font-variant-numeric:tabular-nums;white-space:nowrap}
+.glass .ic{width:13px;height:13px;stroke-width:2.6}
+.glass.ok{background:rgba(255,255,255,.92);color:#1D6B3B}
+.glass.todo{background:rgba(255,255,255,.92);color:#0E1B23}
+.glass.urg{background:#E5483E;color:#fff}
+.card-b{position:absolute;left:12px;right:12px;bottom:11px;color:#fff}
+.card-t{font:700 18px/1.15 var(--font-display);letter-spacing:-.015em;text-shadow:0 1px 8px rgba(0,0,0,.3);overflow-wrap:anywhere}
+.card-s{font-size:12.5px;opacity:.88;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.empty{padding:30px 20px;text-align:center;color:var(--fg-2);font-size:15px;background:var(--surface);border-radius:var(--r-lg)}
 .empty strong{display:block;color:var(--fg);font-size:17px;margin-bottom:4px}
+.foot{color:var(--fg-3);font-size:13px;margin:16px 4px 0;display:flex;align-items:center;gap:6px}
+.foot .ic{width:15px;height:15px}
 
-/* Detail header */
-.hero{display:flex;gap:14px;align-items:center;padding-block:4px 4px}
-.hero img{width:84px;height:84px;border-radius:18px;object-fit:cover;flex:none;box-shadow:var(--shadow)}
-.hero h1{font:700 30px/1.1 var(--font-display);letter-spacing:-.02em;margin:0;text-wrap:balance}
-.hero p{margin:5px 0 0;color:var(--fg-2);font-size:15px}
-.prog{margin-top:18px;background:var(--surface);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--shadow)}
-.prog-top{display:flex;justify-content:space-between;align-items:baseline;font-size:15px}
-.prog-top b{font-size:22px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-.prog-top span{color:var(--fg-2)}
-.track{height:6px;border-radius:3px;background:var(--fill);margin-top:10px;overflow:hidden}
-.track i{display:block;height:100%;border-radius:3px;background:var(--ok);transition:width .5s var(--ease)}
+/* Tab bar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);box-shadow:0 -.5px 0 var(--sep);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);transition:transform var(--t-push) var(--ease)}
+.tabbar-in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;height:58px}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:600;color:var(--fg-3);transition:color .2s}
+.tab .ic{width:25px;height:25px;stroke-width:1.9}
+.tab[aria-current="page"]{color:var(--brand)}
+.tab[aria-current="page"] .ic{stroke-width:2.3}
+body.pushed .tabbar{transform:translateX(-26%)}
+
+/* Detail banner */
+.banner{position:relative;overflow:hidden;margin-top:calc(-50px - env(safe-area-inset-top,0px));padding:calc(64px + env(safe-area-inset-top,0px)) 16px 46px;text-align:center;color:#fff;isolation:isolate}
+.banner .bg{position:absolute;inset:-40px;z-index:-2;background-size:cover;background-position:center;filter:blur(28px) saturate(140%);transform:scale(1.1)}
+.banner::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.5))}
+.banner img{width:124px;height:124px;border-radius:30px;object-fit:cover;box-shadow:0 12px 34px rgba(0,0,0,.35),0 0 0 3px rgba(255,255,255,.25)}
+.banner h1{font:800 30px/1.1 var(--font-display);letter-spacing:-.025em;margin:16px 0 0;text-wrap:balance}
+.banner p{margin:6px 0 0;font-size:15px;opacity:.9}
+.banner .glass{vertical-align:1px;margin-right:6px;height:22px;font-size:11px;background:rgba(255,255,255,.2)}
+.sheet-top{position:relative;margin-top:-24px;background:var(--bg);border-radius:24px 24px 0 0;padding-top:16px}
+
+.prog{background:var(--surface);border-radius:var(--r-lg);padding:15px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px}
+.ring{width:52px;height:52px;flex:none;position:relative}
+.ring svg{width:52px;height:52px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .tr{stroke:var(--fill)}.ring .va{stroke:var(--ok);stroke-linecap:round;transition:stroke-dashoffset .6s var(--ease)}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.prog b{display:block;font-size:19px;letter-spacing:-.01em}
+.prog small{color:var(--fg-2);font-size:14px}
 
 .actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.act{background:var(--surface);border-radius:var(--r-lg);min-height:74px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600;box-shadow:var(--shadow);transition:transform .15s var(--ease),background .15s;padding:8px 4px;text-align:center}
+.act{background:var(--surface);border-radius:var(--r-lg);min-height:78px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:600;box-shadow:var(--shadow);transition:transform .15s var(--ease),background .15s;padding:8px 4px;text-align:center}
 .act .ic{width:24px;height:24px;color:var(--brand)}
-.act:active{transform:scale(.96);background:var(--surface-2)}
+.act:active{transform:scale(.95);background:var(--surface-2)}
 .act.primary{background:var(--brand);color:var(--on-brand)}
 .act.primary .ic{color:var(--on-brand)}
 
-/* Task rows */
+.group{background:var(--surface);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
 .task{display:flex;align-items:flex-start;gap:4px;position:relative;min-height:54px}
 .task+.task::before{content:"";position:absolute;top:0;left:52px;right:0;height:.5px;background:var(--sep)}
 .chk{width:52px;min-height:54px;flex:none;display:flex;align-items:center;justify-content:center}
 .chk span{width:26px;height:26px;border-radius:50%;border:2px solid var(--fg-3);display:grid;place-items:center;transition:background .2s,border-color .2s,transform .25s var(--ease)}
-.chk span .ic{width:16px;height:16px;stroke-width:3;color:#fff;opacity:0;transform:scale(.4);transition:opacity .2s,transform .3s var(--ease)}
+.chk span .ic{width:16px;height:16px;stroke-width:3;opacity:0;transform:scale(.4);transition:opacity .2s,transform .3s var(--ease)}
 .chk[aria-checked="true"] span{background:var(--ok);border-color:var(--ok)}
 .chk[aria-checked="true"] span .ic{opacity:1;transform:none;color:var(--surface)}
 .chk:active span{transform:scale(.86)}
 .task-b{flex:1;min-width:0;text-align:left;padding:15px 14px 13px 0;display:block}
 .task-t{font-size:17px;line-height:1.3;overflow-wrap:anywhere}
-.task.done .task-t{color:var(--fg-3);text-decoration:line-through;text-decoration-color:var(--fg-3)}
+.task.done .task-t{color:var(--fg-3);text-decoration:line-through}
 .meta{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:4px;font-size:13px;color:var(--fg-2);align-items:center}
-.meta span{display:inline-flex;align-items:center;gap:4px}
+.meta span{display:inline-flex;align-items:center;gap:4px;min-width:0}
 .meta .ic{width:14px;height:14px}
 .meta .urg{color:var(--danger);font-weight:600}
-.meta .late{color:var(--danger)}
-.meta .soon{color:var(--warn)}
-.note-prev{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.meta .late{color:var(--danger)}.meta .soon{color:var(--warn)}
+.note-prev{display:-webkit-box!important;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 
 .notes{width:100%;min-height:110px;border:0;background:var(--surface);border-radius:var(--r-lg);padding:14px 16px;font-size:16px;line-height:1.45;resize:vertical;box-shadow:var(--shadow);outline:none}
 .notes:focus-visible{outline:2px solid var(--brand);outline-offset:0}
-.foot{color:var(--fg-3);font-size:13px;margin:8px 16px 0}
+
+/* Wi-Fi */
+.wcard{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+.wcard+.wcard{margin-top:12px}
+.wh{display:flex;align-items:center;gap:12px;padding:12px 8px 12px 12px}
+.wh img{width:46px;height:46px;border-radius:12px;object-fit:cover;flex:none}
+.wh-t{flex:1;min-width:0}
+.wh-t b{display:block;font-size:17px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wh-t small{color:var(--fg-2);font-size:13px}
+.edit-btn{min-height:44px;padding:0 12px;color:var(--brand);font-size:15px;font-weight:500;border-radius:10px}
+.wl{display:flex;align-items:center;gap:10px;min-height:52px;padding:0 6px 0 16px;border-top:.5px solid var(--sep)}
+.wl .k{width:96px;flex:none;color:var(--fg-2);font-size:14px}
+.wl .v{flex:1;min-width:0;font-size:17px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;user-select:text;-webkit-user-select:text;padding-block:8px}
+.wl .v.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:16px;letter-spacing:.02em}
+.icb{width:44px;height:44px;flex:none;display:grid;place-items:center;color:var(--brand);border-radius:12px;transition:background .15s}
+.icb:active{background:var(--fill)}
+.icb .ic{width:20px;height:20px}
+.add-w{display:flex;align-items:center;gap:10px;width:100%;min-height:50px;padding:0 16px;border-top:.5px solid var(--sep);color:var(--brand);font-size:16px;font-weight:500}
+.add-w .ic{width:20px;height:20px}
+.wifi-mini{margin-top:12px}
 
 /* Sheet */
-#scrim{position:fixed;inset:0;background:var(--scrim);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:20}
+#scrim{position:fixed;inset:0;background:var(--scrim);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:40}
 #scrim.on{opacity:1;visibility:visible}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;margin:0 auto;max-width:620px;max-height:calc(100% - 40px - env(safe-area-inset-top,0px));background:var(--bg);border-radius:14px 14px 0 0;transform:translateY(105%);transition:transform .42s var(--ease);display:flex;flex-direction:column;visibility:hidden}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;margin:0 auto;max-width:620px;max-height:calc(100% - 40px - env(safe-area-inset-top,0px));background:var(--bg);border-radius:16px 16px 0 0;transform:translateY(105%);transition:transform .42s var(--ease);display:flex;flex-direction:column;visibility:hidden}
 .sheet.on{transform:none;visibility:visible}
 .grab{width:36px;height:5px;border-radius:3px;background:var(--fg-3);opacity:.5;margin:7px auto 0}
 .sheet-h{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 8px;height:52px}
@@ -160,13 +215,18 @@ body.pushed #home{transform:translateX(-28%);filter:brightness(.92)}
 .sheet-b{overflow-y:auto;padding:4px max(16px,env(safe-area-inset-left,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-right,0px))}
 .field{background:var(--surface);border-radius:var(--r-md);overflow:hidden}
 .field label{display:block;font-size:13px;color:var(--fg-2);padding:10px 14px 0}
-.field input[type=text],.field textarea{width:100%;border:0;background:none;outline:none;padding:4px 14px 12px;font-size:17px}
+.field input,.field textarea{width:100%;border:0;background:none;outline:none;padding:4px 14px 12px;font-size:17px}
 .field textarea{min-height:76px;resize:vertical;font-size:16px}
+.field+.field{border-top:.5px solid var(--sep);border-radius:0}
+.fields{border-radius:var(--r-md);overflow:hidden}
 .lbl{font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:var(--fg-2);margin:20px 14px 7px}
 .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .cat{min-height:56px;border-radius:var(--r-md);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:13px;font-weight:500;color:var(--fg-2);border:2px solid transparent;transition:border-color .15s,color .15s}
 .cat .ic{width:20px;height:20px}
 .cat[aria-checked="true"]{border-color:var(--brand);color:var(--brand);font-weight:600}
+.ops{display:flex;flex-wrap:wrap;gap:8px}
+.op{height:36px;padding:0 14px;border-radius:18px;background:var(--surface);font-size:14px;font-weight:500;box-shadow:inset 0 0 0 1px var(--sep)}
+.op[aria-checked="true"]{background:var(--brand);color:var(--on-brand);box-shadow:none;font-weight:600}
 .list-f{background:var(--surface);border-radius:var(--r-md)}
 .lrow{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:50px;padding:0 14px;position:relative}
 .lrow+.lrow::before{content:"";position:absolute;top:0;left:14px;right:0;height:.5px;background:var(--sep)}
@@ -177,16 +237,16 @@ body.pushed #home{transform:translateX(-28%);filter:brightness(.92)}
 .switch[aria-checked="true"]::after{transform:translateX(20px)}
 .danger-btn{width:100%;min-height:50px;margin-top:22px;border-radius:var(--r-md);background:var(--surface);color:var(--danger);font-size:17px;font-weight:500}
 .danger-btn.armed{background:var(--danger);color:var(--surface);font-weight:600}
-.plain-btn{width:100%;min-height:50px;border-radius:0;background:none;color:var(--brand);font-size:17px;text-align:left;padding:0 14px;display:flex;align-items:center;gap:10px}
+.plain-btn{width:100%;min-height:50px;background:none;color:var(--brand);font-size:17px;text-align:left;padding:0 14px;display:flex;align-items:center;gap:10px}
 .plain-btn.red{color:var(--danger)}
-.hint{color:var(--fg-2);font-size:13px;margin:8px 14px 0;line-height:1.45}
+.hint{color:var(--fg-2);font-size:13px;margin:8px 14px 0;line-height:1.45;display:flex;gap:6px}
+.hint .ic{width:15px;height:15px;margin-top:1px}
 .err{color:var(--danger);font-size:13px;margin:6px 14px 0}
 
 /* Toast */
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);z-index:40;background:var(--fg);color:var(--bg);border-radius:14px;padding:8px 8px 8px 16px;display:flex;align-items:center;gap:10px;font-size:15px;max-width:calc(100% - 32px);box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .4s var(--ease);visibility:hidden}
-#toast.on{transform:translate(-50%,0);visibility:visible}
+#toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translate(-50%,40px);opacity:0;z-index:50;background:var(--fg);color:var(--bg);border-radius:14px;padding:8px 8px 8px 16px;display:flex;align-items:center;gap:10px;font-size:15px;min-height:48px;max-width:calc(100% - 32px);box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .4s var(--ease),opacity .25s;visibility:hidden}
+#toast.on{transform:translate(-50%,0);opacity:1;visibility:visible}
 #toast button{min-height:36px;padding:0 12px;border-radius:9px;font-weight:600;color:var(--bg);background:rgba(127,127,127,.28)}
-#toast button[hidden]{display:none}
 
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
@@ -199,37 +259,63 @@ body.pushed #home{transform:translateX(-28%);filter:brightness(.92)}
   <div class="bar" aria-hidden="true"></div>
 </div>
 
-<main id="home" class="view" aria-label="Appartements">
+<main id="home" class="view tabview" aria-label="Appartements">
   <header class="nav" id="homeNav">
     <div class="nav-in">
       <span class="nav-l"></span>
-      <span class="nav-title">Appartements</span>
-      <span class="nav-r"><button class="nbtn round" data-act="settings" aria-label="Réglages"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg></button></span>
+      <span class="nav-title">Mes appartements</span>
+      <span class="nav-r"><button class="nbtn round" data-act="settings" aria-label="Réglages"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></button></span>
     </div>
   </header>
   <div class="wrap">
-    <div class="large" id="homeLarge">
-      <div class="brandline"><img src="img/logo.png" alt="BookingAlger" width="92" height="22"></div>
-      <h1>Appartements</h1>
-      <p class="sub" id="homeSub"></p>
+    <div class="large">
+      <div><div class="brandline"><img src="img/logo.png" alt="BookingAlger" width="100" height="24"></div>
+      <h1>Mes appartements</h1><p class="sub" id="homeSub"></p></div>
     </div>
-    <label class="search"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="sr">Rechercher un appartement</span><input id="q" type="search" placeholder="Rechercher" autocomplete="off"></label>
-    <div class="seg" role="group" aria-label="Filtrer" id="seg"></div>
-    <div class="sec-h"><span id="listLabel">Tous les appartements</span></div>
-    <div class="group" id="aptList"></div>
+    <div class="summary" id="summary"></div>
+    <label class="search"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="sr">Rechercher un appartement</span><input id="q" type="search" placeholder="Rechercher un appartement" autocomplete="off"></label>
+    <div class="chips" role="group" aria-label="Filtrer" id="chips"></div>
+    <div class="sec-h"><span id="listLabel"></span></div>
+    <div class="grid" id="aptGrid"></div>
     <p class="foot" id="modeNote"></p>
   </div>
 </main>
 
+<main id="wifi" class="view tabview" aria-label="Box Wi-Fi" hidden>
+  <header class="nav" id="wifiNav">
+    <div class="nav-in">
+      <span class="nav-l"></span>
+      <span class="nav-title">Box Wi-Fi</span>
+      <span class="nav-r"></span>
+    </div>
+  </header>
+  <div class="wrap">
+    <div class="large">
+      <div><div class="brandline"><img src="img/logo.png" alt="BookingAlger" width="100" height="24"></div>
+      <h1>Box Wi-Fi</h1><p class="sub" id="wifiSub"></p></div>
+    </div>
+    <label class="search" style="margin-top:4px"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="sr">Rechercher</span><input id="wq" type="search" placeholder="Appartement, numéro, réseau…" autocomplete="off"></label>
+    <div class="sec-h"><span id="wifiLabel"></span></div>
+    <div id="wifiList"></div>
+  </div>
+</main>
+
+<nav class="tabbar" aria-label="Onglets">
+  <div class="tabbar-in">
+    <a class="tab" href="#" data-tab="home" aria-current="page"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>Appartements</a>
+    <a class="tab" href="#wifi" data-tab="wifi"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.86a10 10 0 0 1 14 0"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/></svg>Wi-Fi</a>
+  </div>
+</nav>
+
 <section id="detail" class="view" aria-label="Détail de l’appartement" aria-hidden="true">
   <header class="nav" id="detNav">
     <div class="nav-in">
-      <span class="nav-l"><button class="nbtn back" data-act="back"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Appartements</button></span>
+      <span class="nav-l"><button class="nbtn back" data-act="back"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg><span id="backLbl">Retour</span></button></span>
       <span class="nav-title" id="detNavTitle"></span>
       <span class="nav-r"><button class="nbtn round" data-act="new" aria-label="Nouvelle tâche"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button></span>
     </div>
   </header>
-  <div class="wrap" id="detBody"></div>
+  <div id="detBody"></div>
 </section>
 
 <div id="scrim" data-act="close"></div>
@@ -271,7 +357,6 @@ const byId = Object.fromEntries(APTS.map(a => [a.id, a]));
 
 const IC = {
   check:'<path d="M20 6 9 17l-5-5"/>',
-  chev:'<path d="m9 18 6-6-6-6"/>',
   alert:'<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
   cal:'<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>',
   note:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/>',
@@ -288,9 +373,16 @@ const IC = {
   down:'<path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/>',
   up:'<path d="M12 3v12"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/>',
   cloud:'<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>',
+  copy:'<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+  eye:'<path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/>',
+  eyeoff:'<path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><path d="m2 2 20 20"/>',
+  wifi:'<path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.86a10 10 0 0 1 14 0"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/>',
+  phone:'<rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/>',
+  lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
 };
 const ic = (n, cls='') => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
 const CATS = {menage:'Ménage', linge:'Linge', maint:'Maintenance', courses:'Courses', accueil:'Accueil', autre:'Autre'};
+const OPERATORS = ['Djezzy','Mobilis','Ooredoo','Algérie Télécom','Autre'];
 
 const TPL = {
   depart: apt => [
@@ -323,41 +415,39 @@ const TPL = {
 
 /* ---------- Stockage ---------- */
 const LS = 'bookingalger.v1';
-let tasks = new Map();   // id -> task
-let notes = {};          // aptId -> text
-let db = null;           // espace db de l'artifact (synchronisé) ou null (appareil)
-let syncState = 'local'; // local | connecting | synced | stale
-const writing = {};      // file d'écriture par document
+let tasks = new Map();   // id -> tâche
+let notes = {};          // apt -> texte
+let wifi = {};           // apt -> {op, line, ssid, pass, note}
+let db = null;
+let syncState = 'local';
+const writing = {};
 
 function lsRead(){ try { return JSON.parse(localStorage.getItem(LS) || '{}'); } catch { return {}; } }
-function lsWrite(){ if (db) return; try { localStorage.setItem(LS, JSON.stringify({tasks:[...tasks.values()], notes})); } catch {} }
-(function boot(){ const d = lsRead(); (d.tasks||[]).forEach(t => t && t.id && tasks.set(t.id, t)); notes = d.notes || {}; })();
+function lsWrite(){ if (db) return; try { localStorage.setItem(LS, JSON.stringify({tasks:[...tasks.values()], notes, wifi})); } catch {} }
+(function boot(){ const d = lsRead(); (d.tasks||[]).forEach(t => t && t.id && tasks.set(t.id, t)); notes = d.notes || {}; wifi = d.wifi || {}; })();
 
 function queue(key, fn){ const p = (writing[key] || Promise.resolve()).then(fn, fn); writing[key] = p.catch(()=>{}); return p; }
 function clean(o){ const r = {}; for (const k in o) if (k !== 'id' && o[k] !== undefined) r[k] = o[k]; return r; }
+const dbSet = (col, id, data) => db ? queue(col+id, () => db.collection(col).doc(id).set(data)).catch(fail) : null;
+const dbDel = (col, id) => db ? queue(col+id, () => db.collection(col).doc(id).delete()).catch(fail) : null;
 
-async function putTask(t){
-  tasks.set(t.id, t); lsWrite(); renderAll();
-  if (db) try { await queue('t'+t.id, () => db.collection('tasks').doc(t.id).set(clean(t))); } catch(e){ fail(e); }
-}
-async function delTask(id){
-  tasks.delete(id); lsWrite(); renderAll();
-  if (db) try { await queue('t'+id, () => db.collection('tasks').doc(id).delete()); } catch(e){ fail(e); }
-}
+function putTask(t){ tasks.set(t.id, t); lsWrite(); renderAll(); return dbSet('tasks', t.id, clean(t)); }
+function delTask(id){ tasks.delete(id); lsWrite(); renderAll(); return dbDel('tasks', id); }
+function putWifi(apt, w){ wifi[apt] = w; lsWrite(); renderAll(); return dbSet('wifi', apt, w); }
 let noteTimer = null;
 function putNote(apt, text){
   notes[apt] = text; lsWrite();
   clearTimeout(noteTimer);
-  if (db) noteTimer = setTimeout(() => queue('n'+apt, () => db.collection('notes').doc(apt).set({text})).catch(fail), 700);
+  if (db) noteTimer = setTimeout(() => dbSet('notes', apt, {text}), 700);
 }
-function fail(e){ toast(e && e.code === 'quota_exceeded' ? 'Stockage plein : supprimez des tâches terminées.' : 'Enregistrement impossible pour le moment.'); }
+function fail(e){ toast(e && e.code === 'quota_exceeded' ? 'Stockage plein : effacez des tâches faites.' : 'Enregistrement impossible pour le moment.'); }
 
 async function connect(){
   if (!window.claude || typeof window.claude.use !== 'function') { renderAll(); return; }
   syncState = 'connecting'; renderAll();
   let ns = null; try { ns = await window.claude.use('db'); } catch {}
   if (!ns) { syncState = 'local'; renderAll(); return; }
-  db = ns; syncState = 'connecting';
+  db = ns;
   const local = lsRead();
   const stale = setTimeout(() => { if (syncState === 'connecting') { syncState = 'stale'; renderAll(); } }, 10000);
   db.collection('tasks').onSnapshot(snap => {
@@ -365,15 +455,19 @@ async function connect(){
     if (!snap.metadata.fromCache) { clearTimeout(stale); syncState = 'synced'; }
     renderAll();
   }, () => { clearTimeout(stale); syncState = 'stale'; renderAll(); });
+  db.collection('wifi').onSnapshot(snap => {
+    const w = {}; snap.docs.forEach(d => w[d.id] = d.data() || {}); wifi = w; renderAll();
+  }, () => {});
   db.collection('notes').onSnapshot(snap => {
     const n = {}; snap.docs.forEach(d => n[d.id] = (d.data()||{}).text || '');
-    const active = document.activeElement && document.activeElement.id === 'aptNotes';
-    notes = n; if (!active) renderDetail();
+    notes = n; if (!(document.activeElement && document.activeElement.id === 'aptNotes')) renderDetail();
   }, () => {});
-  // Reprend les tâches saisies sur cet appareil avant la synchronisation
-  if ((local.tasks||[]).length || Object.keys(local.notes||{}).length) {
-    for (const t of local.tasks||[]) if (t && t.id) await queue('t'+t.id, () => db.collection('tasks').doc(t.id).set(clean(t))).catch(()=>{});
-    for (const [k,v] of Object.entries(local.notes||{})) if (v) await queue('n'+k, () => db.collection('notes').doc(k).set({text:v})).catch(()=>{});
+  // Reprend ce qui a été saisi sur cet appareil avant la synchronisation
+  const lt = local.tasks || [], ln = local.notes || {}, lw = local.wifi || {};
+  if (lt.length || Object.keys(ln).length || Object.keys(lw).length) {
+    for (const t of lt) if (t && t.id) await dbSet('tasks', t.id, clean(t));
+    for (const [k,v] of Object.entries(ln)) if (v) await dbSet('notes', k, {text:v});
+    for (const [k,v] of Object.entries(lw)) if (v) await dbSet('wifi', k, v);
     try { localStorage.removeItem(LS); } catch {}
   }
 }
@@ -384,6 +478,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)).replace(/-/g,'').slice(0,20);
 const todayISO = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0,10); };
 const dayDiff = iso => Math.round((new Date(iso + 'T00:00:00') - new Date(todayISO() + 'T00:00:00')) / 864e5);
+const fold = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 function dueLabel(iso){
   const n = dayDiff(iso);
   if (n === 0) return 'Aujourd’hui'; if (n === 1) return 'Demain'; if (n === -1) return 'Hier';
@@ -397,53 +492,95 @@ function stats(aptId){
   return {pending, urgent, done};
 }
 const plural = (n, s, p) => `${n} ${n > 1 ? (p || s + 's') : s}`;
+const hasWifi = w => w && (w.line || w.ssid || w.pass);
+const fmtLine = s => { const d = String(s||'').replace(/\s+/g,''); return /^\d{10}$/.test(d) ? d.replace(/(\d{4})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4') : String(s||''); };
 function buzz(){ try { navigator.vibrate && navigator.vibrate(8); } catch {} }
 
-/* ---------- Accueil ---------- */
+/* ---------- Onglet Appartements ---------- */
 let filter = 'all', query = '';
 const FILTERS = [['all','Tous'],['todo','À faire'],['urgent','Urgent'],['ok','À jour']];
 
 function renderHome(){
   const all = APTS.map(a => ({a, s: stats(a.id)}));
-  const totalPending = all.reduce((n, x) => n + x.s.pending, 0);
-  const totalUrgent = all.reduce((n, x) => n + x.s.urgent, 0);
+  const pend = all.reduce((n, x) => n + x.s.pending, 0);
+  const urg = all.reduce((n, x) => n + x.s.urgent, 0);
   const counts = {all: APTS.length, todo: all.filter(x => x.s.pending).length, urgent: all.filter(x => x.s.urgent).length, ok: all.filter(x => !x.s.pending).length};
   const date = new Date().toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'});
-  $('#homeSub').textContent = `${date.charAt(0).toUpperCase() + date.slice(1)} · ` +
-    (totalPending ? `${plural(totalPending, 'tâche')} à faire${totalUrgent ? `, dont ${totalUrgent} urgente${totalUrgent > 1 ? 's' : ''}` : ''}` : 'Tout est à jour');
+  $('#homeSub').textContent = date.charAt(0).toUpperCase() + date.slice(1);
 
-  const idx = FILTERS.findIndex(f => f[0] === filter);
-  $('#seg').innerHTML = `<span class="pill" style="transform:translateX(${idx * 100}%)" aria-hidden="true"></span>` +
-    FILTERS.map(([k, l]) => `<button data-filter="${k}" aria-pressed="${k === filter}">${l} <span class="n">${counts[k]}</span></button>`).join('');
+  $('#summary').innerHTML = `
+    <div class="sum-k">${pend ? 'Tâches à faire' : 'Tout est à jour'}</div>
+    <div class="sum-n">${pend}<small>${pend ? `dans ${plural(counts.todo, 'appartement')}` : 'tâche en attente'}</small></div>
+    <div class="sum-row">
+      ${urg ? `<button class="sum-chip red" data-filter="urgent">${ic('alert')}${plural(urg, 'urgente')}</button>` : ''}
+      <button class="sum-chip" data-filter="ok">${ic('check')}${counts.ok} à jour</button>
+    </div>`;
 
-  const q = query.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  $('#chips').innerHTML = FILTERS.map(([k, l]) => `<button class="chip" data-filter="${k}" aria-pressed="${k === filter}">${l} <span class="n">${counts[k]}</span></button>`).join('');
+
+  const q = fold(query.trim());
   const list = all.filter(({a, s}) => {
     if (filter === 'todo' && !s.pending) return false;
     if (filter === 'urgent' && !s.urgent) return false;
     if (filter === 'ok' && s.pending) return false;
-    if (!q) return true;
-    return (a.name + ' ' + a.type + ' ' + a.tag).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').includes(q);
+    return !q || fold(a.name + ' ' + a.type + ' ' + a.tag).includes(q);
   });
   if (filter === 'todo' || filter === 'urgent') list.sort((x, y) => (y.s.urgent - x.s.urgent) || (y.s.pending - x.s.pending));
-  $('#listLabel').textContent = {all:'Tous les appartements', todo:'Avec des tâches à faire', urgent:'Avec des tâches urgentes', ok:'À jour'}[filter] + ` · ${list.length}`;
+  $('#listLabel').textContent = {all:'Tous les appartements', todo:'Avec des tâches', urgent:'Avec de l’urgent', ok:'À jour'}[filter] + ` · ${list.length}`;
 
-  $('#aptList').innerHTML = list.length ? list.map(({a, s}) => {
-    const badge = s.urgent ? `<span class="badge b-urgent">${ic('alert')}${s.pending}<span class="sr"> tâches, dont ${s.urgent} urgentes</span></span>`
-      : s.pending ? `<span class="badge b-todo">${s.pending}<span class="sr"> tâches à faire</span></span>`
-      : `<span class="badge b-ok">${ic('check')}À jour</span>`;
-    return `<a class="row" href="#${a.id}">
-      <img class="thumb" src="img/${a.id}.jpg" alt="" width="58" height="58" loading="lazy">
-      <span class="row-body"><span class="row-t" style="display:block">${esc(a.name)}</span>
-      <span class="row-s" style="display:block"><span class="type">${a.type}</span>${esc(a.tag)}</span></span>
-      ${badge}${ic('chev','chev')}</a>`;
-  }).join('') : `<div class="empty"><strong>Aucun appartement</strong>${q ? 'Aucun nom ne correspond à votre recherche.' : filter === 'ok' ? 'Tous les appartements ont des tâches en cours.' : 'Rien à signaler dans ce filtre.'}</div>`;
+  $('#aptGrid').innerHTML = list.length ? list.map(({a, s}) => {
+    const badge = s.urgent ? `<span class="glass urg">${ic('alert')}${s.pending}<span class="sr"> tâches, dont ${s.urgent} urgentes</span></span>`
+      : s.pending ? `<span class="glass todo">${s.pending} à faire</span>`
+      : `<span class="glass ok">${ic('check')}À jour</span>`;
+    return `<a class="card" href="#${a.id}">
+      <img src="img/${a.id}.jpg" alt="" width="210" height="210" loading="lazy">
+      <span class="card-top"><span class="glass">${a.type}</span>${badge}</span>
+      <span class="card-b"><span class="card-t" style="display:block">${esc(a.name)}</span><span class="card-s" style="display:block">${esc(a.tag)}</span></span>
+    </a>`;
+  }).join('') : `<div class="empty" style="grid-column:1/-1"><strong>Aucun appartement</strong>${q ? 'Aucun nom ne correspond à votre recherche.' : 'Rien dans ce filtre pour le moment.'}</div>`;
 
-  $('#modeNote').textContent = {
+  $('#modeNote').innerHTML = ({
     local: 'Données enregistrées sur cet appareil.',
     connecting: 'Synchronisation en cours…',
-    synced: 'Synchronisé : vos tâches sont les mêmes sur tous vos appareils.',
-    stale: 'Connexion lente : les tâches affichées peuvent ne pas être à jour.',
-  }[syncState];
+    synced: `${ic('cloud')}Synchronisé sur tous vos appareils.`,
+    stale: 'Connexion lente : les données affichées peuvent ne pas être à jour.',
+  })[syncState];
+}
+
+/* ---------- Onglet Wi-Fi ---------- */
+let wquery = '';
+const shown = new Set(); // mots de passe affichés
+
+function wifiLines(a, w, compact){
+  const rows = [];
+  if (w.line) rows.push(`<div class="wl"><span class="k">N° de la box</span><span class="v">${esc(fmtLine(w.line))}</span><button class="icb" data-copy="${esc(w.line)}" aria-label="Copier le numéro de la box de ${esc(a.name)}">${ic('copy')}</button></div>`);
+  if (w.ssid) rows.push(`<div class="wl"><span class="k">Réseau</span><span class="v">${esc(w.ssid)}</span><button class="icb" data-copy="${esc(w.ssid)}" aria-label="Copier le nom du réseau">${ic('copy')}</button></div>`);
+  if (w.pass) {
+    const vis = shown.has(a.id);
+    rows.push(`<div class="wl"><span class="k">Mot de passe</span><span class="v mono">${vis ? esc(w.pass) : '••••••••'}</span>
+      <button class="icb" data-reveal="${a.id}" aria-label="${vis ? 'Masquer' : 'Afficher'} le mot de passe" aria-pressed="${vis}">${ic(vis ? 'eyeoff' : 'eye')}</button>
+      <button class="icb" data-copy="${esc(w.pass)}" aria-label="Copier le mot de passe" style="margin-left:-8px">${ic('copy')}</button></div>`);
+  }
+  if (w.note && !compact) rows.push(`<div class="wl"><span class="k">Note</span><span class="v" style="font-size:15px;color:var(--fg-2)">${esc(w.note)}</span></div>`);
+  return rows.join('');
+}
+
+function renderWifi(){
+  const filled = APTS.filter(a => hasWifi(wifi[a.id])).length;
+  $('#wifiSub').textContent = `${filled} sur ${APTS.length} box renseignées`;
+  const q = fold(wquery.trim());
+  const list = APTS.filter(a => { const w = wifi[a.id] || {}; return !q || fold([a.name, a.type, w.op, w.line, (w.line||'').replace(/\s/g,''), w.ssid].join(' ')).includes(q); });
+  $('#wifiLabel').textContent = q ? `${list.length} résultat${list.length > 1 ? 's' : ''}` : 'Par appartement';
+  $('#wifiList').innerHTML = list.length ? list.map(a => {
+    const w = wifi[a.id] || {};
+    const ok = hasWifi(w);
+    return `<div class="wcard">
+      <div class="wh"><img src="img/${a.id}.jpg" alt="" width="46" height="46" loading="lazy">
+        <div class="wh-t"><b>${esc(a.name)}</b><small>${ok ? esc(w.op || 'Box Wi-Fi') : 'Pas encore renseignée'}</small></div>
+        ${ok ? `<button class="edit-btn" data-wifi="${a.id}" aria-label="Modifier la box de ${esc(a.name)}">Modifier</button>` : ''}</div>
+      ${ok ? wifiLines(a, w) : `<button class="add-w" data-wifi="${a.id}">${ic('plus')}Ajouter la box Wi-Fi</button>`}
+    </div>`;
+  }).join('') : `<div class="empty"><strong>Aucun résultat</strong>Essayez un autre nom ou numéro.</div>`;
 }
 
 /* ---------- Détail ---------- */
@@ -454,7 +591,7 @@ function taskRow(t){
   if (t.urgent && !t.done) metas.push(`<span class="urg">${ic('alert')}Urgent</span>`);
   metas.push(`<span>${ic(t.cat || 'autre')}${CATS[t.cat] || 'Autre'}</span>`);
   if (t.due) { const n = dayDiff(t.due); metas.push(`<span class="${!t.done && n < 0 ? 'late' : !t.done && n <= 1 ? 'soon' : ''}">${ic('cal')}${dueLabel(t.due)}${!t.done && n < 0 ? ' · en retard' : ''}</span>`); }
-  if (t.note) metas.push(`<span class="note-prev">${ic('note')}${esc(t.note)}</span>`);
+  if (t.note) metas.push(`<span class="note-prev">${esc(t.note)}</span>`);
   return `<div class="task ${t.done ? 'done' : ''}">
     <button class="chk" role="checkbox" aria-checked="${!!t.done}" data-toggle="${t.id}" aria-label="${t.done ? 'Marquer à faire' : 'Marquer comme fait'} : ${esc(t.title)}"><span>${ic('check')}</span></button>
     <button class="task-b" data-edit="${t.id}"><span class="task-t">${esc(t.title)}</span><span class="meta">${metas.join('')}</span></button>
@@ -468,17 +605,22 @@ function renderDetail(){
   const todo = list.filter(t => !t.done).sort(sortTasks);
   const done = list.filter(t => t.done).sort((x, y) => (y.doneAt||0) - (x.doneAt||0));
   const pct = list.length ? Math.round(done.length / list.length * 100) : 0;
+  const C = 2 * Math.PI * 22;
+  const w = wifi[a.id] || {};
   $('#detNavTitle').textContent = a.name;
-  const notesFocused = document.activeElement && document.activeElement.id === 'aptNotes';
-  const caret = notesFocused ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
+  const nf = document.activeElement && document.activeElement.id === 'aptNotes';
+  const caret = nf ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
   $('#detBody').innerHTML = `
-    <div class="hero">
-      <img src="img/${a.id}.jpg" alt="Photo de ${esc(a.name)}" width="84" height="84">
-      <div style="min-width:0"><h1>${esc(a.name)}</h1><p><span class="type">${a.type}</span>${esc(a.tag)}</p></div>
+    <div class="banner">
+      <div class="bg" style="background-image:url('img/${a.id}.jpg')"></div>
+      <img src="img/${a.id}.jpg" alt="Photo de ${esc(a.name)}" width="124" height="124">
+      <h1>${esc(a.name)}</h1>
+      <p><span class="glass">${a.type}</span>${esc(a.tag)}</p>
     </div>
-    <div class="prog" aria-label="Avancement">
-      <div class="prog-top"><b>${todo.length ? plural(todo.length, 'tâche') + ' à faire' : list.length ? 'Tout est fait' : 'Aucune tâche'}</b><span>${list.length ? `${done.length} / ${list.length} faites` : ''}</span></div>
-      <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><i style="width:${pct}%"></i></div>
+    <div class="sheet-top"><div class="wrap">
+    <div class="prog">
+      <div class="ring" role="img" aria-label="${pct} % des tâches faites"><svg viewBox="0 0 52 52" aria-hidden="true"><circle class="tr" cx="26" cy="26" r="22"/><circle class="va" cx="26" cy="26" r="22" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct/100)}"/></svg><span>${pct}%</span></div>
+      <div><b>${todo.length ? plural(todo.length, 'tâche') + ' à faire' : list.length ? 'Tout est fait' : 'Aucune tâche'}</b><small>${list.length ? `${done.length} sur ${list.length} faites` : 'Ajoutez une tâche ou une checklist'}</small></div>
     </div>
     <div class="actions">
       <button class="act" data-tpl="depart">${ic('depart')}Après départ</button>
@@ -487,40 +629,50 @@ function renderDetail(){
     </div>
     <div class="sec-h"><span>À faire${todo.length ? ' · ' + todo.length : ''}</span></div>
     <div class="group">${todo.length ? todo.map(taskRow).join('') :
-      `<div class="empty"><strong>${done.length ? 'Tout est fait' : 'Rien à faire ici'}</strong>Ajoutez une tâche, ou chargez la checklist « Après départ » pour préparer le ménage.</div>`}</div>
+      `<div class="empty" style="box-shadow:none"><strong>${done.length ? 'Tout est fait' : 'Rien à faire ici'}</strong>Ajoutez une tâche, ou chargez la checklist « Après départ » pour préparer le ménage.</div>`}</div>
     ${done.length ? `<div class="sec-h"><span>Faites · ${done.length}</span><span><button data-act="toggleDone" aria-expanded="${showDone}">${showDone ? 'Masquer' : 'Afficher'}</button></span></div>
       ${showDone ? `<div class="group">${done.map(taskRow).join('')}</div>
-      <div style="display:flex;justify-content:flex-end"><button class="nbtn" style="padding:0 16px;color:var(--danger);font-size:15px" data-act="clearDone">${ic('trash')}&nbsp;Effacer les tâches faites</button></div>` : ''}` : ''}
+      <div style="display:flex;justify-content:flex-end"><button class="nbtn" style="padding:0 12px;color:var(--danger);font-size:15px" data-act="clearDone">${ic('trash')}&nbsp;Effacer les tâches faites</button></div>` : ''}` : ''}
+    <div class="sec-h"><span>Box Wi-Fi</span>${hasWifi(w) ? `<span><button data-wifi="${a.id}">Modifier</button></span>` : ''}</div>
+    <div class="wcard">${hasWifi(w) ? wifiLines(a, w).replace('<div class="wl">', '<div class="wl" style="border-top:0">') : `<button class="add-w" style="border-top:0" data-wifi="${a.id}">${ic('wifi')}Ajouter la box Wi-Fi</button>`}</div>
     <div class="sec-h"><label for="aptNotes">Notes de l’appartement</label></div>
-    <textarea class="notes" id="aptNotes" placeholder="Code de la porte, Wi-Fi, contact du gardien, compteurs…">${esc(notes[a.id] || '')}</textarea>
+    <textarea class="notes" id="aptNotes" placeholder="Code de la porte, contact du gardien, compteurs…">${esc(notes[a.id] || '')}</textarea>
+    </div></div>
   `;
-  if (notesFocused) { const n = $('#aptNotes'); n.focus(); try { n.setSelectionRange(caret[0], caret[1]); } catch {} }
+  if (nf) { const n = $('#aptNotes'); n.focus(); try { n.setSelectionRange(caret[0], caret[1]); } catch {} }
 }
 
-function renderAll(){ renderHome(); renderDetail(); }
+function renderAll(){ renderHome(); renderWifi(); renderDetail(); }
 
 /* ---------- Navigation ---------- */
+let tab = 'home', pushed = false;
+function setTab(t){
+  tab = t;
+  $('#home').hidden = t !== 'home'; $('#wifi').hidden = t !== 'wifi';
+  document.querySelectorAll('.tab').forEach(el => el.dataset.tab === t ? el.setAttribute('aria-current','page') : el.removeAttribute('aria-current'));
+}
 function route(){
   const id = decodeURIComponent(location.hash.slice(1));
   if (byId[id]) {
     const changed = current !== id; current = id; if (changed) showDone = false;
+    $('#backLbl').textContent = tab === 'wifi' ? 'Wi-Fi' : 'Appartements';
     renderDetail();
     if (changed) $('#detail').scrollTop = 0;
     $('#detail').classList.add('open'); $('#detail').setAttribute('aria-hidden','false');
-    $('#home').setAttribute('aria-hidden','true'); document.body.classList.add('pushed');
-    onScroll($('#detail'), $('#detNav'), 40);
+    document.body.classList.add('pushed');
+    onScroll($('#detail'), $('#detNav'), 150);
   } else {
+    setTab(id === 'wifi' ? 'wifi' : 'home');
     current = null; closeSheet(true);
     $('#detail').classList.remove('open'); $('#detail').setAttribute('aria-hidden','true');
-    $('#home').removeAttribute('aria-hidden'); document.body.classList.remove('pushed');
+    document.body.classList.remove('pushed');
   }
 }
-let pushedFromHome = false;
-function back(){ if (pushedFromHome) { pushedFromHome = false; history.back(); } else { location.hash = ''; route(); } }
+function back(){ if (pushed) { pushed = false; history.back(); } else { location.hash = tab === 'wifi' ? 'wifi' : ''; route(); } }
 function onScroll(el, nav, th){ nav.classList.toggle('solid', el.scrollTop > th); }
 
-/* ---------- Feuille (ajout / édition / réglages) ---------- */
-let editing = null, lastFocus = null;
+/* ---------- Feuilles ---------- */
+let editing = null, editingWifi = null, lastFocus = null;
 function openSheet(html, focusSel){
   lastFocus = document.activeElement;
   const s = $('#sheet'); s.innerHTML = '<div class="grab" aria-hidden="true"></div>' + html;
@@ -529,7 +681,7 @@ function openSheet(html, focusSel){
 }
 function closeSheet(silent){
   const s = $('#sheet'); if (!s.classList.contains('on')) return;
-  s.classList.remove('on'); $('#scrim').classList.remove('on'); editing = null;
+  s.classList.remove('on'); $('#scrim').classList.remove('on'); editing = null; editingWifi = null;
   if (!silent && lastFocus && document.contains(lastFocus)) lastFocus.focus({preventScroll:true});
 }
 
@@ -565,8 +717,36 @@ function saveTask(){
   toast(isNew ? 'Tâche ajoutée' : 'Tâche modifiée');
 }
 
+function wifiSheet(aptId){
+  const a = byId[aptId], w = {...(wifi[aptId] || {})};
+  editingWifi = {apt: aptId, op: w.op || ''};
+  openSheet(`
+    <div class="sheet-h"><button class="nbtn" data-act="close" style="justify-self:start">Annuler</button><h2 id="sheetTitle">Box Wi-Fi</h2><button class="nbtn strong" data-act="saveWifi">OK</button></div>
+    <form class="sheet-b" id="wifiForm" novalidate>
+      <div class="list-f" style="padding:12px 14px;display:flex;gap:12px;align-items:center;margin-bottom:4px">
+        <img src="img/${a.id}.jpg" alt="" width="40" height="40" style="width:40px;height:40px;border-radius:10px;object-fit:cover">
+        <b style="font-size:17px">${esc(a.name)}</b>
+      </div>
+      <div class="lbl" id="opLbl">Opérateur</div>
+      <div class="ops" role="radiogroup" aria-labelledby="opLbl">${OPERATORS.map(o => `<button type="button" class="op" role="radio" aria-checked="${w.op === o}" data-op="${esc(o)}">${o}</button>`).join('')}</div>
+      <div class="lbl">Informations</div>
+      <div class="fields">
+        <div class="field"><label for="wLine">Numéro de la box / de la ligne</label><input type="text" id="wLine" inputmode="tel" value="${esc(w.line)}" placeholder="0550 12 34 56" autocomplete="off"></div>
+        <div class="field"><label for="wSsid">Nom du réseau Wi-Fi</label><input type="text" id="wSsid" value="${esc(w.ssid)}" placeholder="BookingAlger_${esc(a.id)}" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+        <div class="field"><label for="wPass">Mot de passe Wi-Fi</label><input type="text" id="wPass" value="${esc(w.pass)}" placeholder="Mot de passe" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+        <div class="field"><label for="wNote">Note</label><input type="text" id="wNote" value="${esc(w.note)}" placeholder="Ex. box derrière la télé, recharge le 5" autocomplete="off"></div>
+      </div>
+      <p class="hint">${ic('lock')}<span>${db ? 'Visible par les personnes avec qui vous partagez l’app.' : 'Enregistré uniquement sur cet appareil.'}</span></p>
+      ${hasWifi(w) ? `<button type="button" class="danger-btn" data-act="delWifi">Effacer les infos de cette box</button>` : ''}
+    </form>`, '#wLine');
+}
+function saveWifi(){
+  const e = editingWifi; if (!e) return;
+  const w = {op: e.op, line: $('#wLine').value.trim(), ssid: $('#wSsid').value.trim(), pass: $('#wPass').value, note: $('#wNote').value.trim()};
+  closeSheet(); putWifi(e.apt, w); buzz(); toast('Box Wi-Fi enregistrée');
+}
+
 function settingsSheet(){
-  const isLocal = !db;
   const nDone = [...tasks.values()].filter(t => t.done).length;
   openSheet(`
     <div class="sheet-h"><span></span><h2 id="sheetTitle">Réglages</h2><button class="nbtn strong" data-act="close">OK</button></div>
@@ -576,25 +756,23 @@ function settingsSheet(){
         <div><div style="font-weight:600">BookingAlger · ${APTS.length} appartements</div><div style="color:var(--fg-2);font-size:14px">${[...tasks.values()].filter(t=>!t.done).length} tâches à faire · ${nDone} faites</div></div>
       </div>
       <div class="lbl">Tâches</div>
-      <div class="list-f">
-        <button class="plain-btn red" data-act="clearAllDone" ${nDone ? '' : 'disabled style="opacity:.4;cursor:default"'}>${ic('trash')}Effacer toutes les tâches faites (${nDone})</button>
-      </div>
-      ${isLocal ? `<div class="lbl">Sauvegarde</div>
+      <div class="list-f"><button class="plain-btn red" data-act="clearAllDone" ${nDone ? '' : 'disabled style="opacity:.4;cursor:default"'}>${ic('trash')}Effacer toutes les tâches faites (${nDone})</button></div>
+      ${!db ? `<div class="lbl">Sauvegarde</div>
       <div class="list-f">
         <button class="plain-btn" data-act="export">${ic('down')}Exporter une sauvegarde</button>
         <div class="lrow" style="padding:0"><label class="plain-btn" for="importFile" style="cursor:pointer">${ic('up')}Importer une sauvegarde</label><input type="file" id="importFile" accept="application/json,.json" class="sr"></div>
       </div>
-      <p class="hint">Vos tâches sont enregistrées sur ce téléphone. Exportez une sauvegarde de temps en temps pour ne rien perdre.</p>`
-      : `<p class="hint">${ic('cloud')} Vos tâches sont synchronisées : ouvrez ce lien sur un autre appareil pour retrouver la même liste.</p>`}
+      <p class="hint">Vos données sont enregistrées sur ce téléphone. Exportez une sauvegarde de temps en temps.</p>`
+      : `<p class="hint">${ic('cloud')}<span>Tâches, box Wi-Fi et notes sont synchronisées : ouvrez ce lien sur un autre appareil pour retrouver tout.</span></p>`}
     </div>`);
 }
 
-/* ---------- Toast + annulation ---------- */
+/* ---------- Toast ---------- */
 let toastTimer = null, undoFn = null;
 function toast(msg, undo){
   $('#toastMsg').textContent = msg; undoFn = undo || null; $('#toastUndo').hidden = !undo;
   $('#toast').classList.add('on'); clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { $('#toast').classList.remove('on'); undoFn = null; }, undo ? 5000 : 2200);
+  toastTimer = setTimeout(() => { $('#toast').classList.remove('on'); undoFn = null; }, undo ? 5000 : 2000);
 }
 $('#toastUndo').addEventListener('click', () => { const f = undoFn; undoFn = null; $('#toast').classList.remove('on'); f && f(); });
 
@@ -609,48 +787,67 @@ async function addTemplate(kind){
   buzz();
   items.forEach(t => tasks.set(t.id, t)); lsWrite(); renderAll();
   toast(`${plural(items.length, 'tâche')} ajoutée${items.length > 1 ? 's' : ''}`, () => items.forEach(t => delTask(t.id)));
-  if (db) for (const t of items) await queue('t'+t.id, () => db.collection('tasks').doc(t.id).set(clean(t))).catch(fail);
+  for (const t of items) await dbSet('tasks', t.id, clean(t));
 }
-
 async function clearDone(aptId){
   const gone = [...tasks.values()].filter(t => t.done && (!aptId || t.apt === aptId));
   if (!gone.length) return;
   gone.forEach(t => tasks.delete(t.id)); lsWrite(); renderAll();
   toast(`${plural(gone.length, 'tâche')} effacée${gone.length > 1 ? 's' : ''}`, () => gone.forEach(t => putTask(t)));
-  if (db) for (const t of gone) await queue('t'+t.id, () => db.collection('tasks').doc(t.id).delete()).catch(fail);
+  for (const t of gone) await dbDel('tasks', t.id);
+}
+function copy(text, btn){
+  const done = () => { toast('Copié'); buzz(); };
+  try {
+    navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, btn));
+  } catch { fallbackCopy(text, btn); }
+}
+function fallbackCopy(text, btn){
+  const v = btn.parentElement.querySelector('.v');
+  if (v) { const r = document.createRange(); r.selectNodeContents(v); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  toast('Copie bloquée : texte sélectionné, copiez-le à la main.');
 }
 
 document.addEventListener('click', ev => {
-  const el = ev.target.closest('[data-act],[data-filter],[data-toggle],[data-edit],[data-tpl],[data-cat],a.row');
+  const el = ev.target.closest('[data-act],[data-filter],[data-toggle],[data-edit],[data-tpl],[data-cat],[data-op],[data-wifi],[data-copy],[data-reveal],a.card,a.tab');
   if (!el) return;
-  if (el.matches('a.row')) { pushedFromHome = true; return; }
-  if (el.dataset.filter) { filter = el.dataset.filter; renderHome(); return; }
-  if (el.dataset.toggle) {
-    const t = tasks.get(el.dataset.toggle); if (!t) return;
-    buzz(); putTask({...t, done: !t.done, doneAt: !t.done ? Date.now() : null}); return;
+  if (el.matches('a.card')) { pushed = true; return; }
+  if (el.matches('a.tab')) {
+    ev.preventDefault();
+    const t = el.dataset.tab;
+    if (t === tab) { $('#' + t).scrollTo({top:0, behavior:'smooth'}); return; }
+    history.replaceState(null, '', t === 'wifi' ? '#wifi' : location.pathname + location.search); route(); return;
   }
+  if (el.dataset.filter) { filter = el.dataset.filter === filter && el.classList.contains('sum-chip') ? 'all' : el.dataset.filter; renderHome(); return; }
+  if (el.dataset.toggle) { const t = tasks.get(el.dataset.toggle); if (!t) return; buzz(); putTask({...t, done: !t.done, doneAt: !t.done ? Date.now() : null}); return; }
   if (el.dataset.edit) { const t = tasks.get(el.dataset.edit); t && taskSheet(t); return; }
   if (el.dataset.tpl) { addTemplate(el.dataset.tpl); return; }
-  if (el.dataset.cat && editing) {
-    editing.cat = el.dataset.cat;
-    document.querySelectorAll('.cat').forEach(b => b.setAttribute('aria-checked', b.dataset.cat === editing.cat)); return;
-  }
+  if (el.dataset.wifi) { wifiSheet(el.dataset.wifi); return; }
+  if (el.dataset.copy !== undefined) { copy(el.dataset.copy, el); return; }
+  if (el.dataset.reveal) { const id = el.dataset.reveal; shown.has(id) ? shown.delete(id) : shown.add(id); renderWifi(); renderDetail(); return; }
+  if (el.dataset.cat && editing) { editing.cat = el.dataset.cat; document.querySelectorAll('.cat').forEach(b => b.setAttribute('aria-checked', b.dataset.cat === editing.cat)); return; }
+  if (el.dataset.op && editingWifi) { editingWifi.op = editingWifi.op === el.dataset.op ? '' : el.dataset.op; document.querySelectorAll('.op').forEach(b => b.setAttribute('aria-checked', b.dataset.op === editingWifi.op)); return; }
   switch (el.dataset.act) {
     case 'back': back(); break;
     case 'new': if (current) taskSheet(null); break;
     case 'settings': settingsSheet(); break;
     case 'close': closeSheet(); break;
     case 'save': saveTask(); break;
+    case 'saveWifi': saveWifi(); break;
     case 'urgent': editing.urgent = !editing.urgent; el.setAttribute('aria-checked', editing.urgent); break;
     case 'delete':
       if (!el.classList.contains('armed')) { el.classList.add('armed'); el.textContent = 'Confirmer la suppression'; return; }
       { const t = tasks.get(editing.id); closeSheet(); delTask(t.id); toast('Tâche supprimée', () => putTask(t)); }
       break;
+    case 'delWifi':
+      if (!el.classList.contains('armed')) { el.classList.add('armed'); el.textContent = 'Confirmer l’effacement'; return; }
+      { const apt = editingWifi.apt, old = wifi[apt]; closeSheet(); delete wifi[apt]; lsWrite(); renderAll(); dbDel('wifi', apt); toast('Infos effacées', () => putWifi(apt, old)); }
+      break;
     case 'toggleDone': showDone = !showDone; renderDetail(); break;
     case 'clearDone': clearDone(current); break;
     case 'clearAllDone': closeSheet(); clearDone(null); break;
     case 'export': {
-      const blob = new Blob([JSON.stringify({app:'BookingAlger', date:new Date().toISOString(), tasks:[...tasks.values()], notes}, null, 1)], {type:'application/json'});
+      const blob = new Blob([JSON.stringify({app:'BookingAlger', date:new Date().toISOString(), tasks:[...tasks.values()], notes, wifi}, null, 1)], {type:'application/json'});
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `bookingalger-sauvegarde-${todayISO()}.json`;
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
       toast('Sauvegarde exportée'); break;
@@ -658,13 +855,14 @@ document.addEventListener('click', ev => {
   }
 });
 
-document.addEventListener('submit', ev => { ev.preventDefault(); if (ev.target.id === 'taskForm') saveTask(); });
+document.addEventListener('submit', ev => { ev.preventDefault(); if (ev.target.id === 'taskForm') saveTask(); if (ev.target.id === 'wifiForm') saveWifi(); });
 document.addEventListener('keydown', ev => {
   if (ev.key === 'Escape' && $('#sheet').classList.contains('on')) closeSheet();
   if (ev.key === 'Enter' && ev.target.id === 'fTitle') { ev.preventDefault(); saveTask(); }
 });
 document.addEventListener('input', ev => {
   if (ev.target.id === 'q') { query = ev.target.value; renderHome(); }
+  if (ev.target.id === 'wq') { wquery = ev.target.value; renderWifi(); }
   if (ev.target.id === 'aptNotes' && current) putNote(current, ev.target.value);
   if (ev.target.id === 'fTitle') $('#fErr').hidden = true;
 });
@@ -674,23 +872,24 @@ document.addEventListener('change', ev => {
   r.onload = () => {
     try {
       const d = JSON.parse(r.result); if (!Array.isArray(d.tasks)) throw 0;
-      d.tasks.forEach(t => t && t.id && byId[t.apt] && tasks.set(t.id, t)); notes = {...notes, ...(d.notes || {})};
-      lsWrite(); renderAll(); closeSheet(); toast(`${plural(d.tasks.length, 'tâche')} importée${d.tasks.length > 1 ? 's' : ''}`);
+      d.tasks.forEach(t => t && t.id && byId[t.apt] && tasks.set(t.id, t));
+      notes = {...notes, ...(d.notes || {})}; wifi = {...wifi, ...(d.wifi || {})};
+      lsWrite(); renderAll(); closeSheet(); toast('Sauvegarde importée');
     } catch { toast('Ce fichier n’est pas une sauvegarde BookingAlger.'); }
   };
   r.readAsText(ev.target.files[0]);
 });
 
-$('#home').addEventListener('scroll', e => onScroll(e.target, $('#homeNav'), 56), {passive:true});
-$('#detail').addEventListener('scroll', e => onScroll(e.target, $('#detNav'), 40), {passive:true});
+$('#home').addEventListener('scroll', e => onScroll(e.target, $('#homeNav'), 70), {passive:true});
+$('#wifi').addEventListener('scroll', e => onScroll(e.target, $('#wifiNav'), 70), {passive:true});
+$('#detail').addEventListener('scroll', e => onScroll(e.target, $('#detNav'), 150), {passive:true});
 window.addEventListener('hashchange', route);
-// Retour par glissement depuis le bord gauche (comme sur iOS)
 let sx = null, sy = 0;
 $('#detail').addEventListener('touchstart', e => { const t = e.touches[0]; sx = t.clientX < 24 ? t.clientX : null; sy = t.clientY; }, {passive:true});
 $('#detail').addEventListener('touchend', e => { if (sx === null) return; const t = e.changedTouches[0]; if (t.clientX - sx > 80 && Math.abs(t.clientY - sy) < 60) back(); sx = null; }, {passive:true});
 
 /* ---------- Démarrage ---------- */
-renderHome(); route(); connect();
+renderAll(); route(); connect();
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 setTimeout(() => { $('#splash').classList.add('out'); setTimeout(() => $('#splash').remove(), 500); }, reduce ? 700 : 1600);
 if ('serviceWorker' in navigator && window.top === window && location.protocol === 'https:' && !window.claude) {
